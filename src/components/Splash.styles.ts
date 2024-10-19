@@ -1,4 +1,4 @@
-import {Animated, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 
 const stylesSplash = StyleSheet.create({
   container: {
@@ -7,7 +7,21 @@ const stylesSplash = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
   },
-  animateView: {
+  animatedView: {
     backgroundColor: '#61dafb',
+    padding: 20,
+    borderRadius: 10,
+  },
+  text: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  image: {
+    width: 100,
+    height: 100,
+    marginBottom: 20,
   },
 });
+
+export default stylesSplash;
