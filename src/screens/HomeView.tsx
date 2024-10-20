@@ -1,14 +1,27 @@
-import React from 'react';
-import {View, Text, FlatList, ActivityIndicator} from 'react-native';
+import React, {useState} from 'react';
+import {View, FlatList, ActivityIndicator} from 'react-native';
 import {useContacts} from '../hooks/useContact';
+import ContactItem from '../components/ContactItem';
 import styles from './HomeView.style';
+import CreateContact from '../components/createContactButton';
 
-const Home = () => {
+const Home: React.FC = () => {
   const {contacts, loading} = useContacts();
+  const [selectedContactId, setSelectedContactId] = useState<number | null>(
+    null,
+  );
 
   if (loading) {
     return <ActivityIndicator size="large" color="#0000ff" />;
   }
+
+  const handleContactPress = (id: number) => {
+    if (selectedContactId === id) {
+      setSelectedContactId(null);
+    } else {
+      setSelectedContactId(id);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -16,13 +29,14 @@ const Home = () => {
         data={contacts}
         keyExtractor={item => item.id.toString()}
         renderItem={({item}) => (
-          <View style={styles.contactItem}>
-            <Text style={styles.contactName}>{item.name}</Text>
-            <Text>{item.phone}</Text>
-            <Text>{item.email}</Text>
-          </View>
+          <ContactItem
+            contact={item}
+            isSelected={selectedContactId === item.id}
+            onPress={handleContactPress}
+          />
         )}
       />
+      <CreateContact />
     </View>
   );
 };

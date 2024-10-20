@@ -2,7 +2,6 @@ import {StyleSheet} from 'react-native';
 
 const stylesHeader = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'space-around',

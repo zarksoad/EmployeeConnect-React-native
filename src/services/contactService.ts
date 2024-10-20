@@ -13,7 +13,7 @@ export const getContacts = async (): Promise<Contact[] | undefined> => {
     return response.data;
   } catch (error: unknown) {
     if (error instanceof Error) {
-      console.error('Error fetching contactss:', error);
+      console.error('Error fetching contacts:', error);
       throw error;
     }
   }
