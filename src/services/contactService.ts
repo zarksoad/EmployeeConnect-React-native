@@ -5,6 +5,7 @@ export interface Contact {
   name: string;
   phone: string;
   email: string;
+  imageUri?: string | null;
 }
 
 export const getContacts = async (): Promise<Contact[] | undefined> => {

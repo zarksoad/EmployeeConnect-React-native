@@ -7,8 +7,8 @@ function App() {
   return (
     <>
       <Header />
-      {/* <SplashScreen />
-      <Home /> */}
+      {/* <SplashScreen /> */}
+      <Home />
       <CreateContactForm />
     </>
   );

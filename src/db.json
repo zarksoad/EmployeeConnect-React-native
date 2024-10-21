@@ -1,46 +1,18 @@
 {
   "contacts": [
     {
-      "id": "1",
-      "name": "John Does",
-      "phone": "555-555-5555",
-      "email": "john.doe@example.com"
-    },
-    {
-      "id": "2",
-      "name": "Jane Smith",
-      "phone": "555-123-4567",
-      "email": "jane.smith@example.com"
-    },
-    {
-      "id": "3",
-      "name": "Jane Smith",
-      "phone": "555-123-4567",
-      "email": "jane.smith@example.com"
-    },
-    {
-      "id": "4",
-      "name": "Jane Smith",
-      "phone": "555-123-4567",
-      "email": "jane.smith@example.com"
-    },
-    {
-      "id": "5",
-      "name": "Jane Smith",
-      "phone": "555-123-4567",
-      "email": "jane.smith@example.com"
-    },
-    {
-      "id": "cc07",
-      "name": "hernan",
-      "phone": "123456",
-      "email": "zarksoad"
-    },
-    {
-      "id": "aa84",
-      "name": "Erick",
+      "id": "81f0",
+      "name": "Test with image",
       "phone": "+573017432082",
-      "email": "zarksoad@gmail.com"
+      "email": "zarksoad@gmail.com",
+      "imageUri": "file:///data/user/0/com.employeeconnect/cache/rn_image_picker_lib_temp_9cb9d112-b666-4aed-af04-5d234e48bae3.jpg"
+    },
+    {
+      "id": "d493",
+      "name": "Erick",
+      "phone": "Ryytgh",
+      "email": "zarksum41@gmail.com",
+      "imageUri": "file:///data/user/0/com.employeeconnect/cache/rn_image_picker_lib_temp_1788c465-fad3-4719-adf4-c92772f420f0.jpg"
     }
   ]
 }

@@ -1,8 +1,7 @@
 import React from 'react';
-import {Pressable, Text} from 'react-native';
+import {Image, Pressable, Text} from 'react-native';
 import styles from '../screens/HomeView.style';
 import {Contact} from '../services/contactService';
-
 interface ContactItemProps {
   contact: Contact;
   isSelected: boolean;
@@ -29,6 +28,12 @@ const ContactItem: React.FC<ContactItemProps> = ({
         backgroundColor: isSelected ? '#e0e0e0' : '#fff',
         transform: [{scale: isSelected ? 1.05 : 1}],
       }}>
+      <Image
+        source={{
+          uri: contact.imageUri || require('../assets/default-image.png'),
+        }}
+        style={{width: 50, height: 50, borderRadius: 25}}
+      />
       <Text style={styles.contactName}>{contact.name}</Text>
       <Text style={styles.contactPhone}>{contact.phone}</Text>
       <Text style={styles.contactEmail}>{contact.email}</Text>
