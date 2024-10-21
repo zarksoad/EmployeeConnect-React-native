@@ -1,11 +1,11 @@
+import CreateContactForm from './src/components/createContactForm';
 import Header from './src/components/Header';
-import Home from './src/screens/HomeView';
 
 function App() {
   return (
     <>
       <Header />
-      <Home />
+      <CreateContactForm />
     </>
   );
 }
