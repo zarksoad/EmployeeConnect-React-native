@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {ip} from './ip';
 
 export interface Contact {
   id?: number;
@@ -10,7 +11,7 @@ export interface Contact {
 
 export const getContacts = async (): Promise<Contact[] | undefined> => {
   try {
-    const response = await axios.get('http://192.168.89.115:3000/contacts');
+    const response = await axios.get(`http:/192.168.89.115:3000/contacts`);
     return response.data;
   } catch (error: unknown) {
     if (error instanceof Error) {

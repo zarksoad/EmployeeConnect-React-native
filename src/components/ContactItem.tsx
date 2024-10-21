@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, Pressable, Text} from 'react-native';
+import {Alert, Image, Pressable, Text, TouchableOpacity} from 'react-native';
 import styles from '../screens/HomeView.style';
 import {Contact} from '../services/contactService';
 interface ContactItemProps {
@@ -37,6 +37,11 @@ const ContactItem: React.FC<ContactItemProps> = ({
       <Text style={styles.contactName}>{contact.name}</Text>
       <Text style={styles.contactPhone}>{contact.phone}</Text>
       <Text style={styles.contactEmail}>{contact.email}</Text>
+      <TouchableOpacity
+        style={styles.contactButton}
+        onPress={() => Alert.alert('Button Pressed!')}>
+        <Text style={styles.buttonText}>Update</Text>
+      </TouchableOpacity>
     </Pressable>
   );
 };
