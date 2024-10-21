@@ -19,7 +19,7 @@ const SplashScreen = () => {
         useNativeDriver: true,
       }),
     ]).start();
-  }, [opacity]);
+  }, []);
 
   return (
     <View style={stylesSplash.container}>

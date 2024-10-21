@@ -6,9 +6,10 @@ export const createContactService = async (
 ): Promise<Contact | undefined> => {
   try {
     const response = await axios.post(
-      'http://192.168.1.1:3000/contacts',
+      'http://192.168.89.115:3000/contacts',
       contact,
     );
+    console.log(contact);
     return response.data;
   } catch (error) {
     if (error instanceof Error) {

@@ -14,9 +14,16 @@ const ContactItem: React.FC<ContactItemProps> = ({
   isSelected,
   onPress,
 }) => {
+  const handlePress = () => {
+    if (contact.id !== undefined) {
+      onPress(contact.id);
+    } else {
+      console.warn(`Contact Id is undefined for ${contact.name}`);
+    }
+  };
   return (
     <Pressable
-      onPress={() => onPress(contact.id)}
+      onPress={handlePress}
       style={{
         ...styles.contactItem,
         backgroundColor: isSelected ? '#e0e0e0' : '#fff',

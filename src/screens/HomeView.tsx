@@ -26,8 +26,8 @@ const Home: React.FC = () => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={contacts}
-        keyExtractor={item => item.id.toString()}
+        data={contacts.filter(contact => contact.id !== undefined)}
+        keyExtractor={item => item.id!.toString()}
         renderItem={({item}) => (
           <ContactItem
             contact={item}
