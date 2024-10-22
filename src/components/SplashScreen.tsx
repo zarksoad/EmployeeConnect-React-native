@@ -1,9 +1,16 @@
-// src/components/SplashScreen.js
+// src/components/SplashScreen.tsx
 import React, {useEffect, useRef} from 'react';
-import {View, Text, Animated, Image} from 'react-native';
+import {View, Text, Animated} from 'react-native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import stylesSplash from './Splash.styles';
+import {RootStackParamList} from '../../App';
 
-const SplashScreen = () => {
+// Define the type for the navigation prop
+type SplashScreenProps = {
+  navigation: NativeStackNavigationProp<RootStackParamList>;
+};
+
+const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
   const opacity = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -18,13 +25,15 @@ const SplashScreen = () => {
         duration: 2000,
         useNativeDriver: true,
       }),
-    ]).start();
-  }, []);
+    ]).start(() => {
+      // Navigate to Home after the animation is complete
+      navigation.replace('Home');
+    });
+  }, [navigation, opacity]);
 
   return (
     <View style={stylesSplash.container}>
       <Animated.View style={{...stylesSplash.animatedView, opacity}}>
-        {/* <Image source={require('../../assets/your-image.png')} /> */}
         <Text style={stylesSplash.text}>EmployeeConnect!</Text>
       </Animated.View>
     </View>

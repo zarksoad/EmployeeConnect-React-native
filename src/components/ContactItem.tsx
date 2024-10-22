@@ -30,7 +30,7 @@ const ContactItem: React.FC<ContactItemProps> = ({
       }}>
       <Image
         source={{
-          uri: contact.imageUri || require('../assets/default-image.png'),
+          uri: contact.imageUri || 'srs',
         }}
         style={{width: 50, height: 50, borderRadius: 25}}
       />
