@@ -89,9 +89,9 @@ const ContactPage: React.FC<ContactPageProps> = ({route}) => {
       />
       <Text style={styles.contactName}>{contact.name}</Text>
       <Text style={styles.contactInfo}>Phone:{contact.phone}</Text>
-      <Text style={styles.contactInfo}>Email:{contact.email}</Text>
+      <Text style={styles.contactInfo}>Email: {contact.email}</Text>
       <View style={styles.button}>
-        <TouchableOpacity style={styles.updateButton} onPress={handleDelete}>
+        <TouchableOpacity style={styles.updateButton}>
           <Text style={{color: '#fff'}}>Update</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>

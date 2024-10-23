@@ -1,8 +1,11 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {useCreateContact} from '../../hooks/useCreateContact';
 import {Alert, View, Button, Text, TextInput, Image} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native'; // Import useNavigation
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../../App'; // Adjust the path if necessary
 
 const ID_COUNTER_KEY = '@contact_id_counter';
 
@@ -18,14 +21,44 @@ const getNextId = async (): Promise<number> => {
   }
 };
 
+// Define the navigation type
+type NavigationCreateContactProps = NativeStackNavigationProp<
+  RootStackParamList,
+  'CreateContact'
+>;
+
 const CreateContactForm: React.FC = () => {
   const {createContact, isLoading, error} = useCreateContact();
+  const navigation = useNavigation<NavigationCreateContactProps>();
+
   const [name, setName] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [imageUri, setImageUri] = useState<string | null>(null);
 
+  const validateInputs = () => {
+    // Validate name
+    if (!name) {
+      Alert.alert('Validation Error', 'Name is required');
+      return false;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailPattern.test(email)) {
+      Alert.alert('Validation Error', 'Valid email is required');
+      return false;
+    }
+
+    if (!phone) {
+      Alert.alert('Validation Error', 'Phone number is required');
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = async () => {
+    if (!validateInputs()) return;
     const id = await getNextId();
     await createContact({id, name, phone, email, imageUri});
 
@@ -35,36 +68,26 @@ const CreateContactForm: React.FC = () => {
       setPhone('');
       setEmail('');
       setImageUri(null);
+      navigation.navigate('Home');
     } else {
       Alert.alert('Error', error || 'Failed to create contact');
     }
   };
 
   const openCamera = () => {
-    launchCamera(
-      {
-        mediaType: 'photo',
-        cameraType: 'back',
-      },
-      response => {
-        if (response.assets && response.assets.length > 0) {
-          setImageUri(response.assets[0].uri || null);
-        }
-      },
-    );
+    launchCamera({mediaType: 'photo', cameraType: 'back'}, response => {
+      if (response.assets && response.assets.length > 0) {
+        setImageUri(response.assets[0].uri || null);
+      }
+    });
   };
 
   const openGallery = () => {
-    launchImageLibrary(
-      {
-        mediaType: 'photo',
-      },
-      response => {
-        if (response.assets && response.assets.length > 0) {
-          setImageUri(response.assets[0].uri || null);
-        }
-      },
-    );
+    launchImageLibrary({mediaType: 'photo'}, response => {
+      if (response.assets && response.assets.length > 0) {
+        setImageUri(response.assets[0].uri || null);
+      }
+    });
   };
 
   return (

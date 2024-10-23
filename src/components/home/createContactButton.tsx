@@ -1,7 +1,7 @@
 import {Button} from 'react-native';
-import {RootStackParamList} from '../../../App';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
+import {RootStackParamList} from '../../../App';
 
 type NavigationCreateContactProps = NativeStackNavigationProp<
   RootStackParamList,
