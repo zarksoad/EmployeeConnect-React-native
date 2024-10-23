@@ -88,11 +88,16 @@ const ContactPage: React.FC<ContactPageProps> = ({route}) => {
         style={styles.contactImage} // Apply the image style
       />
       <Text style={styles.contactName}>{contact.name}</Text>
-      <Text style={styles.contactInfo}>Phone: {contact.phone}</Text>
-      <Text style={styles.contactInfo}>Email: {contact.email}</Text>
-      <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
-        <Text style={{color: '#fff'}}>Delete Contact</Text>
-      </TouchableOpacity>
+      <Text style={styles.contactInfo}>Phone:{contact.phone}</Text>
+      <Text style={styles.contactInfo}>Email:{contact.email}</Text>
+      <View style={styles.button}>
+        <TouchableOpacity style={styles.updateButton} onPress={handleDelete}>
+          <Text style={{color: '#fff'}}>Update</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
+          <Text style={{color: '#fff'}}>Delete</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
