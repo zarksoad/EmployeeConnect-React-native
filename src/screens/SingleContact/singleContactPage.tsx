@@ -1,9 +1,17 @@
-import React, {useState} from 'react';
-import {ActivityIndicator, Text, View, Button, Alert} from 'react-native';
+import React from 'react';
+import {
+  ActivityIndicator,
+  Text,
+  View,
+  Alert,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import {RouteProp} from '@react-navigation/native';
 import {RootStackParamList} from '../../../App';
 import {useContact} from '../../hooks/useGetContact';
 import {useDeleteContact} from '../../hooks/useDeleteContact';
+import styles from './contactPage.style';
 
 type ContactPageRouteProp = RouteProp<RootStackParamList, 'ContactPage'>;
 
@@ -71,13 +79,20 @@ const ContactPage: React.FC<ContactPageProps> = ({route}) => {
     );
   }
 
+  const defaultImageUri = require('../../assets/default-image.png');
+
   return (
-    <View>
-      <Text>Welcome to Contact Page</Text>
-      <Text>Contact Name: {contact.name}</Text>
-      <Text>Contact Phone: {contact.phone}</Text>
-      <Text>Contact Email: {contact.email}</Text>
-      <Button title="Delete Contact" onPress={handleDelete} />
+    <View style={styles.container}>
+      <Image
+        source={contact.imageUri ? {uri: contact.imageUri} : defaultImageUri}
+        style={styles.contactImage} // Apply the image style
+      />
+      <Text style={styles.contactName}>{contact.name}</Text>
+      <Text style={styles.contactInfo}>Phone: {contact.phone}</Text>
+      <Text style={styles.contactInfo}>Email: {contact.email}</Text>
+      <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
+        <Text style={{color: '#fff'}}>Delete Contact</Text>
+      </TouchableOpacity>
     </View>
   );
 };

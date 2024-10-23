@@ -18,10 +18,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#e0e0e0',
     flexDirection: 'row',
-    alignItems: 'center',
-  },
-  contactImageContainer: {
-    marginRight: 15,
+    justifyContent: 'space-around',
   },
   contactImage: {
     width: 50,
@@ -38,23 +35,6 @@ const styles = StyleSheet.create({
   },
   contactPhone: {
     fontSize: 16,
-  },
-  contactEmail: {
-    fontSize: 16,
-    color: '#555',
-  },
-  contactButton: {
-    backgroundColor: '#000',
-    paddingVertical: 1,
-    paddingHorizontal: 10,
-    borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
   },
 });
 

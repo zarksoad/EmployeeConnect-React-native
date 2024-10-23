@@ -15,12 +15,6 @@ const Home: React.FC = () => {
   if (loading) {
     return <ActivityIndicator size="large" color="#0000ff" />;
   }
-  const fetchContacts = async () => {
-    const manyContacts = await AsyncStorage.getItem(CONTACTS_KEY);
-    console.log('you can see here;', manyContacts);
-  };
-
-  fetchContacts();
 
   const handleContactPress = (id: number) => {
     setSelectedContactId(prevId => (prevId === id ? null : id));
@@ -34,7 +28,6 @@ const Home: React.FC = () => {
         renderItem={({item}) => (
           <ContactItem
             contact={item}
-            isSelected={selectedContactId === item.id}
             onPress={() => handleContactPress(item.id!)}
           />
         )}
