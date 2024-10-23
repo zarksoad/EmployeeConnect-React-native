@@ -1,7 +1,8 @@
 import React from 'react';
 import {Alert, Image, Pressable, Text, TouchableOpacity} from 'react-native';
 import styles from '../screens/HomeView.style';
-import {Contact} from '../services/contactService';
+import {Contact} from '../services/getAllContactsService';
+
 interface ContactItemProps {
   contact: Contact;
   isSelected: boolean;
@@ -20,6 +21,9 @@ const ContactItem: React.FC<ContactItemProps> = ({
       console.warn(`Contact Id is undefined for ${contact.name}`);
     }
   };
+
+  const defaultImageUri = '../assets/default-image.png';
+
   return (
     <Pressable
       onPress={handlePress}
@@ -30,18 +34,14 @@ const ContactItem: React.FC<ContactItemProps> = ({
       }}>
       <Image
         source={{
-          uri: contact.imageUri || 'srs',
+          uri: contact.imageUri || defaultImageUri,
         }}
         style={{width: 50, height: 50, borderRadius: 25}}
       />
       <Text style={styles.contactName}>{contact.name}</Text>
-      <Text style={styles.contactPhone}>{contact.phone}</Text>
-      <Text style={styles.contactEmail}>{contact.email}</Text>
       <TouchableOpacity
         style={styles.contactButton}
-        onPress={() => Alert.alert('Button Pressed!')}>
-        <Text style={styles.buttonText}>Update</Text>
-      </TouchableOpacity>
+        onPress={() => Alert.alert('Button Pressed!')}></TouchableOpacity>
     </Pressable>
   );
 };

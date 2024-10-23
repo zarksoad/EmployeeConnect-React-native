@@ -26,7 +26,6 @@ const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
         useNativeDriver: true,
       }),
     ]).start(() => {
-      // Navigate to Home after the animation is complete
       navigation.replace('Home');
     });
   }, [navigation, opacity]);

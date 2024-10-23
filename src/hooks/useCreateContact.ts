@@ -1,6 +1,6 @@
 import {useState} from 'react';
-import {Contact} from '../services/contactService';
 import {createContactService} from '../services/createContact';
+import {Contact} from '../services/getAllContactsService';
 
 export const useCreateContact = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);

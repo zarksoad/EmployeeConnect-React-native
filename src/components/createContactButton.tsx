@@ -1,8 +1,18 @@
-import {Alert, Button} from 'react-native';
+import {Button} from 'react-native';
+import {RootStackParamList} from '../../App';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useNavigation} from '@react-navigation/native';
 
-const CreateContact = () => {
+type NavigationCreateContactProps = NativeStackNavigationProp<
+  RootStackParamList,
+  'CreateContact'
+>;
+
+const CreateContact: React.FC = ({}) => {
+  const navigation = useNavigation<NavigationCreateContactProps>();
+
   const createNewContact = () => {
-    Alert.alert('the contact has been created');
+    navigation.navigate('CreateContact');
   };
   return <Button title="new contact" onPress={createNewContact} />;
 };
