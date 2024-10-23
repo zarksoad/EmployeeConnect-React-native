@@ -7,13 +7,18 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import {RouteProp} from '@react-navigation/native';
+import {RouteProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../../../App';
 import {useContact} from '../../hooks/useGetContact';
 import {useDeleteContact} from '../../hooks/useDeleteContact';
 import styles from './contactPage.style';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 type ContactPageRouteProp = RouteProp<RootStackParamList, 'ContactPage'>;
+type UpdateContactRoutePageProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'UpdateContactPage'
+>;
 
 interface ContactPageProps {
   route: ContactPageRouteProp;
@@ -27,6 +32,7 @@ const ContactPage: React.FC<ContactPageProps> = ({route}) => {
     error: deleteError,
     handleDeleteContact,
   } = useDeleteContact();
+  const navigation = useNavigation<UpdateContactRoutePageProp>();
 
   const handleDelete = () => {
     Alert.alert(
@@ -49,6 +55,10 @@ const ContactPage: React.FC<ContactPageProps> = ({route}) => {
       ],
       {cancelable: false},
     );
+  };
+
+  const navigateToUpdate = () => {
+    navigation.navigate('UpdateContactPage', {contactId});
   };
 
   if (loading || deleting) {
@@ -91,7 +101,9 @@ const ContactPage: React.FC<ContactPageProps> = ({route}) => {
       <Text style={styles.contactInfo}>Phone:{contact.phone}</Text>
       <Text style={styles.contactInfo}>Email: {contact.email}</Text>
       <View style={styles.button}>
-        <TouchableOpacity style={styles.updateButton}>
+        <TouchableOpacity
+          style={styles.updateButton}
+          onPress={navigateToUpdate}>
           <Text style={{color: '#fff'}}>Update</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>

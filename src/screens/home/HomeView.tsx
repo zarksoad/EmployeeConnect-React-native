@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
 import {View, FlatList, ActivityIndicator} from 'react-native';
 import styles from './HomeView.style';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useContacts} from '../../hooks/useGetContacts';
-import {CONTACTS_KEY} from '../../services/createContact';
 import ContactItem from '../../components/home/ContactItem';
 import CreateContact from '../../components/home/createContactButton';
 const Home: React.FC = () => {
