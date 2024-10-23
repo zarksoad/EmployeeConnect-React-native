@@ -14,7 +14,6 @@ export const useContacts = () => {
         if (data) {
           setContacts(data);
         }
-        console.log('data', data);
       } catch (err) {
         console.error('Failed to fetch contacts:', err);
         setError('Failed to fetch contacts');

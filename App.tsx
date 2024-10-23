@@ -3,9 +3,9 @@ import {NavigationContainer, ParamListBase} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Header from './src/components/Header';
 import SplashScreen from './src/components/SplashScreen';
-import Home from './src/screens/HomeView';
-import CreateContactForm from './src/components/createContactForm';
-import ContactPage from './src/screens/singleContactPage';
+import CreateContactForm from './src/screens/create/createContactView';
+import ContactPage from './src/screens/SingleContact/singleContactPage';
+import Home from './src/screens/home/HomeView';
 
 export interface RootStackParamList extends ParamListBase {
   Home: undefined;
