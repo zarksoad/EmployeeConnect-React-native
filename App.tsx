@@ -11,7 +11,7 @@ export interface RootStackParamList extends ParamListBase {
   Home: undefined;
   Splash: undefined;
   CreateContact: undefined;
-  SingleContact: undefined;
+  ContactPage: {contactId: number};
 }
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

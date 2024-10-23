@@ -2,21 +2,31 @@ import React from 'react';
 import {Alert, Image, Pressable, Text, TouchableOpacity} from 'react-native';
 import styles from '../screens/HomeView.style';
 import {Contact} from '../services/getAllContactsService';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../App';
+import {useNavigation} from '@react-navigation/native';
 
 interface ContactItemProps {
   contact: Contact;
   isSelected: boolean;
   onPress: (id: number) => void;
 }
+type NavigationContact = NativeStackNavigationProp<
+  RootStackParamList,
+  'ContactPage'
+>;
 
 const ContactItem: React.FC<ContactItemProps> = ({
   contact,
   isSelected,
   onPress,
 }) => {
+  const navigation = useNavigation<NavigationContact>();
   const handlePress = () => {
     if (contact.id !== undefined) {
       onPress(contact.id);
+      const contactId = contact.id;
+      navigation.navigate('ContactPage', {contactId});
     } else {
       console.warn(`Contact Id is undefined for ${contact.name}`);
     }
