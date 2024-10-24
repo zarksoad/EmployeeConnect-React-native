@@ -2,26 +2,12 @@ import React, {useState} from 'react';
 import {useCreateContact} from '../../hooks/useCreateContact';
 import {Alert, View, Button, Text, TextInput, Image} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useNavigation} from '@react-navigation/native'; // Import useNavigation
+import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../../../App'; // Adjust the path if necessary
+import {RootStackParamList} from '../../../App';
+import styles from './createContact-styles';
+import {getNextId} from '../../commun/nextId/nextId';
 
-const ID_COUNTER_KEY = '@contact_id_counter';
-
-const getNextId = async (): Promise<number> => {
-  try {
-    const currentId = await AsyncStorage.getItem(ID_COUNTER_KEY);
-    const newId = currentId ? parseInt(currentId) + 1 : 1;
-    await AsyncStorage.setItem(ID_COUNTER_KEY, newId.toString());
-    return newId;
-  } catch (error) {
-    console.error('Error retrieving or saving ID counter:', error);
-    return 1;
-  }
-};
-
-// Define the navigation type
 type NavigationCreateContactProps = NativeStackNavigationProp<
   RootStackParamList,
   'CreateContact'
@@ -37,7 +23,6 @@ const CreateContactForm: React.FC = () => {
   const [imageUri, setImageUri] = useState<string | null>(null);
 
   const validateInputs = () => {
-    // Validate name
     if (!name) {
       Alert.alert('Validation Error', 'Name is required');
       return false;
@@ -91,25 +76,44 @@ const CreateContactForm: React.FC = () => {
   };
 
   return (
-    <View>
-      <TextInput placeholder="Name" value={name} onChangeText={setName} />
-      <TextInput placeholder="Email" value={email} onChangeText={setEmail} />
-      <TextInput placeholder="Phone" value={phone} onChangeText={setPhone} />
+    <View style={styles.container}>
+      <View>
+        <TextInput
+          style={styles.input}
+          placeholder="Name"
+          placeholderTextColor="blue"
+          value={name}
+          onChangeText={setName}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          placeholderTextColor="blue"
+          value={email}
+          onChangeText={setEmail}
+        />
+        <TextInput
+          style={styles.input}
+          placeholderTextColor="blue"
+          placeholder="Phone"
+          value={phone}
+          onChangeText={setPhone}
+          keyboardType="phone-pad"
+        />
 
-      {imageUri && (
-        <Image source={{uri: imageUri}} style={{width: 200, height: 200}} />
-      )}
+        {imageUri && <Image source={{uri: imageUri}} style={styles.image} />}
 
-      <Button title="Take Photo" onPress={openCamera} />
-      <Button title="Select from Gallery" onPress={openGallery} />
+        <Button title="Take Photo" onPress={openCamera} />
+        <Button title="Select from Gallery" onPress={openGallery} />
 
-      <Button
-        title={isLoading ? 'Adding...' : 'Add Contact'}
-        onPress={handleSubmit}
-        disabled={isLoading}
-      />
+        <Button
+          title={isLoading ? 'Adding...' : 'Add Contact'}
+          onPress={handleSubmit}
+          disabled={isLoading}
+        />
 
-      {error && <Text style={{color: 'red'}}>{error}</Text>}
+        {error && <Text style={styles.errorText}>{error}</Text>}
+      </View>
     </View>
   );
 };

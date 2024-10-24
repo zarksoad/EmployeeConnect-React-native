@@ -17,10 +17,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginVertical: 4,
+    color: 'blue',
   },
   contactInfo: {
     fontSize: 18,
     marginVertical: 2,
+    color: 'blue',
   },
   button: {
     marginTop: 10,

@@ -19,6 +19,7 @@ const stylesHeader = StyleSheet.create({
     shadowColor: '1',
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowRadius: 2,
+    color: '#000000',
   },
 });
 
