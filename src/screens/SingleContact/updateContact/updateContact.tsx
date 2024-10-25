@@ -1,40 +1,39 @@
-import React, {useState} from 'react';
-import {Alert, View, Button, Text, TextInput, Image} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {Alert, Button, Image, TextInput, View} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../../../App';
-import {useCreateContact} from '../../../hooks/useCreateContact';
+import {useContact} from '../../../hooks/useGetContact';
+import {useUpdateContact} from '../../../hooks/useUpdateContact';
+import {Text} from 'react-native-paper';
 import styles from '../../create/createContact-styles';
-
-const ID_COUNTER_KEY = '@contact_id_counter';
-
-const getNextId = async (): Promise<number> => {
-  try {
-    const currentId = await AsyncStorage.getItem(ID_COUNTER_KEY);
-    const newId = currentId ? parseInt(currentId) + 1 : 1;
-    await AsyncStorage.setItem(ID_COUNTER_KEY, newId.toString());
-    return newId;
-  } catch (error) {
-    console.error('Error retrieving or saving ID counter:', error);
-    return 1;
-  }
-};
+import {ContactPageProps} from '../singleContactPage';
 
 type NavigationCreateContactProps = NativeStackNavigationProp<
   RootStackParamList,
   'CreateContact'
 >;
 
-const CreateContactForm: React.FC = () => {
-  const {createContact, isLoading, error} = useCreateContact();
+const UpdateForm: React.FC<ContactPageProps> = ({route}) => {
+  const {contactId} = route.params;
+  const {contact} = useContact(contactId);
+  const {updateContact, isLoading, error} = useUpdateContact(); //
+
   const navigation = useNavigation<NavigationCreateContactProps>();
 
   const [name, setName] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [imageUri, setImageUri] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (contact) {
+      setName(contact.name);
+      setPhone(contact.phone);
+      setEmail(contact.email);
+    }
+  }, [contact]);
 
   const validateInputs = () => {
     if (!name) {
@@ -58,21 +57,24 @@ const CreateContactForm: React.FC = () => {
 
   const handleSubmit = async () => {
     if (!validateInputs()) return;
-    const id = await getNextId();
-    await createContact({id, name, phone, email, imageUri});
+
+    const updatedContact = {
+      id: Number(contact?.id),
+      name,
+      phone,
+      email,
+      imageUri,
+    };
+
+    await updateContact(updatedContact);
 
     if (!error) {
-      Alert.alert('Success', 'Contact added successfully');
-      setName('');
-      setPhone('');
-      setEmail('');
-      setImageUri(null);
+      Alert.alert('Success', 'Contact updated successfully');
       navigation.navigate('Home');
     } else {
-      Alert.alert('Error', error || 'Failed to create contact');
+      Alert.alert('Error', error || 'Failed to update contact');
     }
   };
-
   const openCamera = () => {
     launchCamera({mediaType: 'photo', cameraType: 'back'}, response => {
       if (response.assets && response.assets.length > 0) {
@@ -108,8 +110,8 @@ const CreateContactForm: React.FC = () => {
         />
         <TextInput
           style={styles.input}
-          placeholderTextColor="blue"
           placeholder="Phone"
+          placeholderTextColor="blue"
           value={phone}
           onChangeText={setPhone}
           keyboardType="phone-pad"
@@ -121,7 +123,7 @@ const CreateContactForm: React.FC = () => {
         <Button title="Select from Gallery" onPress={openGallery} />
 
         <Button
-          title={isLoading ? 'Adding...' : 'Add Contact'}
+          title={isLoading ? 'Updating...' : 'Update Contact'}
           onPress={handleSubmit}
           disabled={isLoading}
         />
@@ -132,4 +134,4 @@ const CreateContactForm: React.FC = () => {
   );
 };
 
-export default CreateContactForm;
+export default UpdateForm;

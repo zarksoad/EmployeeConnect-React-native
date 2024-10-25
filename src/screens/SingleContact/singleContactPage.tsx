@@ -14,13 +14,13 @@ import {useDeleteContact} from '../../hooks/useDeleteContact';
 import styles from './contactPage.style';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-type ContactPageRouteProp = RouteProp<RootStackParamList, 'ContactPage'>;
-type UpdateContactRoutePageProp = NativeStackNavigationProp<
+export type ContactPageRouteProp = RouteProp<RootStackParamList, 'ContactPage'>;
+export type UpdateContactRoutePageProp = NativeStackNavigationProp<
   RootStackParamList,
   'UpdateContactPage'
 >;
 
-interface ContactPageProps {
+export interface ContactPageProps {
   route: ContactPageRouteProp;
 }
 
@@ -49,6 +49,7 @@ const ContactPage: React.FC<ContactPageProps> = ({route}) => {
             const success = await handleDeleteContact(contactId);
             if (success) {
               Alert.alert('Contact has been deleted');
+              navigation.goBack();
             }
           },
         },
@@ -97,10 +98,7 @@ const ContactPage: React.FC<ContactPageProps> = ({route}) => {
         source={contact.imageUri ? {uri: contact.imageUri} : defaultImageUri}
         style={styles.contactImage} // Apply the image style
       />
-      <Text style={styles.contactName}>
-        id:{contactId}
-        {contact.name}
-      </Text>
+      <Text style={styles.contactName}>{contact.name}</Text>
       <Text style={styles.contactInfo}>Phone:{contact.phone}</Text>
       <Text style={styles.contactInfo}>Email: {contact.email}</Text>
       <View style={styles.button}>
