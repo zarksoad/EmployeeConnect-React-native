@@ -1,4 +1,4 @@
-import {Alert} from 'react-native';
+import {Alert, Platform} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {check, PERMISSIONS, request, RESULTS} from 'react-native-permissions';
 
@@ -39,6 +39,34 @@ export const checkOrRequestCameraPermission = async (setImageUri: any) => {
     Alert.alert(
       'Permission Error',
       'Camera access has been permanently denied. Enable it in settings.',
+    );
+  }
+};
+export const checkOrRequestGalleryPermissions = async (setImageUri: any) => {
+  const version = Number(Platform.Version);
+  const galleryPermission =
+    version >= 33
+      ? PERMISSIONS.ANDROID.READ_MEDIA_IMAGES
+      : PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE;
+
+  const result = await check(galleryPermission);
+
+  if (result === RESULTS.GRANTED) {
+    openGallery(setImageUri);
+  } else if (result === RESULTS.DENIED || result === RESULTS.LIMITED) {
+    const requestResult = await request(galleryPermission);
+    if (requestResult === RESULTS.GRANTED) {
+      openGallery(setImageUri);
+    } else {
+      Alert.alert(
+        'Permission Denied',
+        'Gallery access is required to select an image.',
+      );
+    }
+  } else {
+    Alert.alert(
+      'Permission Error',
+      'Gallery access has been permanently denied. Enable it in settings.',
     );
   }
 };

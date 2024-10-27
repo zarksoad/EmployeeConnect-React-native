@@ -8,6 +8,7 @@ import styles from './createContact-styles';
 import {getNextId} from '../../commun/nextId/nextId';
 import {
   checkOrRequestCameraPermission,
+  checkOrRequestGalleryPermissions,
   openGallery,
 } from '../../commun/nextId/permisions/checkOrOpen';
 
@@ -94,7 +95,10 @@ const CreateContactForm: React.FC = () => {
           title="Take Photo"
           onPress={() => checkOrRequestCameraPermission(setImageUri)}
         />
-        <Button title="Select from Gallery" onPress={openGallery} />
+        <Button
+          title="Select from Gallery"
+          onPress={() => checkOrRequestGalleryPermissions(setImageUri)}
+        />
 
         <Button
           title={isLoading ? 'Adding...' : 'Add Contact'}

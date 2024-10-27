@@ -96,7 +96,7 @@ const ContactPage: React.FC<ContactPageProps> = ({route}) => {
     <View style={styles.container}>
       <Image
         source={contact.imageUri ? {uri: contact.imageUri} : defaultImageUri}
-        style={styles.contactImage} // Apply the image style
+        style={styles.contactImage}
       />
       <Text style={styles.contactName}>{contact.name}</Text>
       <Text style={styles.contactInfo}>Phone:{contact.phone}</Text>

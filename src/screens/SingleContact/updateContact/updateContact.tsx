@@ -9,6 +9,10 @@ import {useUpdateContact} from '../../../hooks/useUpdateContact';
 import {Text} from 'react-native-paper';
 import styles from '../../create/createContact-styles';
 import {ContactPageProps} from '../singleContactPage';
+import {
+  checkOrRequestCameraPermission,
+  checkOrRequestGalleryPermissions,
+} from '../../../commun/nextId/permisions/checkOrOpen';
 
 type NavigationCreateContactProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -75,21 +79,6 @@ const UpdateForm: React.FC<ContactPageProps> = ({route}) => {
       Alert.alert('Error', error || 'Failed to update contact');
     }
   };
-  const openCamera = () => {
-    launchCamera({mediaType: 'photo', cameraType: 'back'}, response => {
-      if (response.assets && response.assets.length > 0) {
-        setImageUri(response.assets[0].uri || null);
-      }
-    });
-  };
-
-  const openGallery = () => {
-    launchImageLibrary({mediaType: 'photo'}, response => {
-      if (response.assets && response.assets.length > 0) {
-        setImageUri(response.assets[0].uri || null);
-      }
-    });
-  };
 
   return (
     <View style={styles.container}>
@@ -119,8 +108,14 @@ const UpdateForm: React.FC<ContactPageProps> = ({route}) => {
 
         {imageUri && <Image source={{uri: imageUri}} style={styles.image} />}
 
-        <Button title="Take Photo" onPress={openCamera} />
-        <Button title="Select from Gallery" onPress={openGallery} />
+        <Button
+          title="Take Photo"
+          onPress={() => checkOrRequestCameraPermission(setImageUri)}
+        />
+        <Button
+          title="Select from Gallery"
+          onPress={() => checkOrRequestGalleryPermissions(setImageUri)}
+        />
 
         <Button
           title={isLoading ? 'Updating...' : 'Update Contact'}
