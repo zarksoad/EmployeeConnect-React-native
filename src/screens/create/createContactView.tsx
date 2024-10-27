@@ -1,12 +1,15 @@
 import React, {useState} from 'react';
 import {useCreateContact} from '../../hooks/useCreateContact';
 import {Alert, View, Button, Text, TextInput, Image} from 'react-native';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../../App';
 import styles from './createContact-styles';
 import {getNextId} from '../../commun/nextId/nextId';
+import {
+  checkOrRequestCameraPermission,
+  openGallery,
+} from '../../commun/nextId/permisions/checkOrOpen';
 
 type NavigationCreateContactProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -59,24 +62,6 @@ const CreateContactForm: React.FC = () => {
     }
   };
 
-  const openCamera = async () => {
-    const response = await launchCamera({
-      mediaType: 'photo',
-      cameraType: 'front',
-    });
-    if (response.assets && response.assets.length > 0) {
-      setImageUri(response.assets[0].uri || null);
-    }
-  };
-
-  const openGallery = () => {
-    launchImageLibrary({mediaType: 'photo'}, response => {
-      if (response.assets && response.assets.length > 0) {
-        setImageUri(response.assets[0].uri || null);
-      }
-    });
-  };
-
   return (
     <View style={styles.container}>
       <View>
@@ -105,7 +90,10 @@ const CreateContactForm: React.FC = () => {
 
         {imageUri && <Image source={{uri: imageUri}} style={styles.image} />}
 
-        <Button title="Take Photo" onPress={openCamera} />
+        <Button
+          title="Take Photo"
+          onPress={() => checkOrRequestCameraPermission(setImageUri)}
+        />
         <Button title="Select from Gallery" onPress={openGallery} />
 
         <Button
