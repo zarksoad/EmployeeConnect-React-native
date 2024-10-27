@@ -22,10 +22,7 @@ export const useUpdateContact = () => {
         if (contactIndex !== -1) {
           contacts[contactIndex] = updatedContact;
           await AsyncStorage.setItem(CONTACTS_KEY, JSON.stringify(contacts));
-          Alert.alert(
-            'Success',
-            `Contact with id ${updatedContact.id} updated successfully`,
-          );
+          Alert.alert('Success');
         } else {
           setError(`Contact with id ${updatedContact.id} not found`);
         }

@@ -59,12 +59,14 @@ const CreateContactForm: React.FC = () => {
     }
   };
 
-  const openCamera = () => {
-    launchCamera({mediaType: 'photo', cameraType: 'back'}, response => {
-      if (response.assets && response.assets.length > 0) {
-        setImageUri(response.assets[0].uri || null);
-      }
+  const openCamera = async () => {
+    const response = await launchCamera({
+      mediaType: 'photo',
+      cameraType: 'front',
     });
+    if (response.assets && response.assets.length > 0) {
+      setImageUri(response.assets[0].uri || null);
+    }
   };
 
   const openGallery = () => {
