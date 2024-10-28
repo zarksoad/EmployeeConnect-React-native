@@ -119,3 +119,12 @@ vbnet
 
 Feel free to modify any sections as needed. If you need further assistance or adjustments, just let me know!
 
+Requirements
+
+The Mapbox Maps SDK for Android requirements are:
+
+    Apps must be built using Android SDK 21 or higher.
+    Apps that use the NDK must be built using NDK 23. Other major versions of the NDK are not guaranteed to be compatible.
+    Devices that support OpenGL ES 3.
+    Apps developed with Kotlin, must use version 1.6.0 or later.
+    Use Java 8 or later for sourceCompatibility and targetCompatibility

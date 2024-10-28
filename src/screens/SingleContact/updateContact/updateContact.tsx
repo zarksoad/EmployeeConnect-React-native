@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Alert, Button, Image, TextInput, View} from 'react-native';
+import {Alert, Image, TextInput, View} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -13,6 +13,7 @@ import {
   checkOrRequestCameraPermission,
   checkOrRequestGalleryPermissions,
 } from '../../../commun/nextId/permisions/checkOrOpen';
+import {Pressable} from 'react-native'; // Import Pressable
 
 type NavigationCreateContactProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -22,7 +23,7 @@ type NavigationCreateContactProps = NativeStackNavigationProp<
 const UpdateForm: React.FC<ContactPageProps> = ({route}) => {
   const {contactId} = route.params;
   const {contact} = useContact(contactId);
-  const {updateContact, isLoading, error} = useUpdateContact(); //
+  const {updateContact, isLoading, error} = useUpdateContact();
 
   const navigation = useNavigation<NavigationCreateContactProps>();
 
@@ -108,20 +109,36 @@ const UpdateForm: React.FC<ContactPageProps> = ({route}) => {
 
         {imageUri && <Image source={{uri: imageUri}} style={styles.image} />}
 
-        <Button
-          title="Take Photo"
-          onPress={() => checkOrRequestCameraPermission(setImageUri)}
-        />
-        <Button
-          title="Select from Gallery"
-          onPress={() => checkOrRequestGalleryPermissions(setImageUri)}
-        />
+        {/* Replace Button with Pressable */}
+        <Pressable
+          style={({pressed}) => [
+            styles.button,
+            {backgroundColor: pressed ? 'lightblue' : 'blue'},
+          ]}
+          onPress={() => checkOrRequestCameraPermission(setImageUri)}>
+          <Text style={styles.buttonText}>Take Photo</Text>
+        </Pressable>
 
-        <Button
-          title={isLoading ? 'Updating...' : 'Update Contact'}
+        <Pressable
+          style={({pressed}) => [
+            styles.button,
+            {backgroundColor: pressed ? 'lightblue' : 'blue'},
+          ]}
+          onPress={() => checkOrRequestGalleryPermissions(setImageUri)}>
+          <Text style={styles.buttonText}>Select from Gallery</Text>
+        </Pressable>
+
+        <Pressable
+          style={({pressed}) => [
+            styles.button,
+            {backgroundColor: pressed ? 'lightblue' : 'blue'},
+          ]}
           onPress={handleSubmit}
-          disabled={isLoading}
-        />
+          disabled={isLoading}>
+          <Text style={styles.buttonText}>
+            {isLoading ? 'Updating...' : 'Update Contact'}
+          </Text>
+        </Pressable>
 
         {error && <Text style={styles.errorText}>{error}</Text>}
       </View>
