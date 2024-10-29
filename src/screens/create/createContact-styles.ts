@@ -36,6 +36,20 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     alignSelf: 'center',
   },
+  page: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  containerMap: {
+    height: 300,
+    width: 300,
+    backgroundColor: 'tomato',
+  },
+  map: {
+    flex: 1,
+  },
 });
 
 export default styles;
