@@ -6,22 +6,18 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../../App';
 import styles from './createContact-styles';
 import {getNextId} from '../../commun/nextId/nextId';
-import MapboxGL, {MapView} from '@rnmapbox/maps';
 
 import {
   checkOrRequestCameraPermission,
   checkOrRequestGalleryPermissions,
-  openGallery,
 } from '../../commun/nextId/permisions/checkOrOpen';
+import MapComponent from '../../components/maps/Map';
+import PressableMap from '../../components/maps/Pressable';
 
 type NavigationCreateContactProps = NativeStackNavigationProp<
   RootStackParamList,
   'CreateContact'
 >;
-
-MapboxGL.setAccessToken(
-  'sk.eyJ1IjoiemFya3NvYWQiLCJhIjoiY20ydGl4MXRuMDNsaTJqcHZrMmdoeGNqMiJ9.yjfZlsKH9gLRr4cz8SkzOg',
-);
 
 const CreateContactForm: React.FC = () => {
   const {createContact, isLoading, error} = useCreateContact();
@@ -114,9 +110,7 @@ const CreateContactForm: React.FC = () => {
 
         {error && <Text style={styles.errorText}>{error}</Text>}
       </View>
-      <View style={styles.containerMap}>
-        <MapView style={styles.map} />
-      </View>
+      <PressableMap />
     </View>
   );
 };

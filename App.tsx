@@ -7,6 +7,7 @@ import CreateContactForm from './src/screens/create/createContactView';
 import ContactPage from './src/screens/SingleContact/singleContactPage';
 import Home from './src/screens/home/HomeView';
 import UpdateContactPage from './src/screens/SingleContact/updateContact/updateContact';
+import MapPage from './src/components/maps/Map';
 
 export interface RootStackParamList extends ParamListBase {
   Home: undefined;
@@ -14,6 +15,7 @@ export interface RootStackParamList extends ParamListBase {
   CreateContact: undefined;
   ContactPage: {contactId: number};
   UpdateContactPage: {contactId: number};
+  MapPage: undefined;
 }
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -27,6 +29,7 @@ function App() {
         <Stack.Screen name="CreateContact" component={CreateContactForm} />
         <Stack.Screen name="ContactPage" component={ContactPage} />
         <Stack.Screen name="UpdateContactPage" component={UpdateContactPage} />
+        <Stack.Screen name="MapPage" component={MapPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,26 +1,38 @@
 import React, {useState, useEffect} from 'react';
 import {Alert, Image, TextInput, View} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {useNavigation} from '@react-navigation/native';
+import {RouteProp, useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../../../App';
 import {useContact} from '../../../hooks/useGetContact';
 import {useUpdateContact} from '../../../hooks/useUpdateContact';
 import {Text} from 'react-native-paper';
 import styles from '../../create/createContact-styles';
-import {ContactPageProps} from '../singleContactPage';
 import {
   checkOrRequestCameraPermission,
   checkOrRequestGalleryPermissions,
 } from '../../../commun/nextId/permisions/checkOrOpen';
 import {Pressable} from 'react-native'; // Import Pressable
 
+export type ContactPageRouteProp = RouteProp<
+  RootStackParamList,
+  'UpdateContactPage'
+>;
+export type UpdateContactRoutePageProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'UpdateContactPage'
+>;
+
+export interface UpdateContactPageProps {
+  route: ContactPageRouteProp;
+}
+
 type NavigationCreateContactProps = NativeStackNavigationProp<
   RootStackParamList,
   'CreateContact'
 >;
 
-const UpdateForm: React.FC<ContactPageProps> = ({route}) => {
+const UpdateForm: React.FC<UpdateContactPageProps> = ({route}) => {
   const {contactId} = route.params;
   const {contact} = useContact(contactId);
   const {updateContact, isLoading, error} = useUpdateContact();
