@@ -1,6 +1,18 @@
+import {RouteProp} from '@react-navigation/native';
 import {Alert, Platform} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {check, PERMISSIONS, request, RESULTS} from 'react-native-permissions';
+import {RootStackParamList} from '../../../App';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+
+export type MapRouteProp = RouteProp<RootStackParamList, 'ContactPage'>;
+export type MapRoutePageProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'MapPage'
+>;
+export interface MapPageProps {
+  route: MapRouteProp;
+}
 
 export const openCamera = async (setImageUri: any) => {
   const response = await launchCamera({
@@ -20,9 +32,31 @@ export const openGallery = (setImageUri: any) => {
   });
 };
 
+export const checkOrRequestLocationPermission = async () => {
+  const result = await check(PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION);
+  if (result === RESULTS.GRANTED) {
+  } else if (result === RESULTS.DENIED || result === RESULTS.LIMITED) {
+    const requestResult = await request(
+      PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION,
+    );
+    if (requestResult === RESULTS.GRANTED) {
+      return true;
+    } else {
+      Alert.alert(
+        'Permission Denied',
+        'Permission are required to use the map',
+      );
+    }
+  } else {
+    Alert.alert(
+      'Permission Error',
+      'Location  access has been permanently denied. Enable it in settings.',
+    );
+  }
+};
+
 export const checkOrRequestCameraPermission = async (setImageUri: any) => {
   const result = await check(PERMISSIONS.ANDROID.CAMERA);
-
   if (result === RESULTS.GRANTED) {
     openCamera(setImageUri);
   } else if (result === RESULTS.DENIED || result === RESULTS.LIMITED) {

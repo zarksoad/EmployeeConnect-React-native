@@ -11,7 +11,7 @@ import styles from '../../create/createContact-styles';
 import {
   checkOrRequestCameraPermission,
   checkOrRequestGalleryPermissions,
-} from '../../../commun/nextId/permisions/checkOrOpen';
+} from '../../../commun/permisions/checkOrOpen';
 import {Pressable} from 'react-native'; // Import Pressable
 
 export type ContactPageRouteProp = RouteProp<

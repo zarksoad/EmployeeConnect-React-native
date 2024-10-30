@@ -7,7 +7,7 @@ import CreateContactForm from './src/screens/create/createContactView';
 import ContactPage from './src/screens/SingleContact/singleContactPage';
 import Home from './src/screens/home/HomeView';
 import UpdateContactPage from './src/screens/SingleContact/updateContact/updateContact';
-import MapPage from './src/components/maps/Map';
+import MapPage from './src/screens/maps/MapScreen';
 
 export interface RootStackParamList extends ParamListBase {
   Home: undefined;

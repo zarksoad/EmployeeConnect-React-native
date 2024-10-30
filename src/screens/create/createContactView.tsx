@@ -10,9 +10,9 @@ import {getNextId} from '../../commun/nextId/nextId';
 import {
   checkOrRequestCameraPermission,
   checkOrRequestGalleryPermissions,
-} from '../../commun/nextId/permisions/checkOrOpen';
-import MapComponent from '../../components/maps/Map';
-import PressableMap from '../../components/maps/Pressable';
+} from '../../commun/permisions/checkOrOpen';
+import MapComponent from '../maps/MapScreen';
+import PressableMap from '../SingleContact/Pressable';
 
 type NavigationCreateContactProps = NativeStackNavigationProp<
   RootStackParamList,
