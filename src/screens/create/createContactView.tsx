@@ -5,7 +5,6 @@ import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../../App';
 import styles from './createContact-styles';
-import {getNextId} from '../../commun/nextId/nextId';
 
 import {
   checkOrRequestCameraPermission,
@@ -49,8 +48,7 @@ const CreateContactForm: React.FC = () => {
 
   const handleSubmit = async () => {
     if (!validateInputs()) return;
-    const id = await getNextId();
-    await createContact({id, name, phone, email, imageUri});
+    await createContact({name, phone, email, imageUri});
 
     if (!error) {
       Alert.alert('Success', 'Contact added successfully');

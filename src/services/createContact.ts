@@ -4,7 +4,6 @@ import {API_URL} from '@env';
 
 export const createContactService = async (contact: Contact): Promise<void> => {
   try {
-    //to do
     const response = await axios.post(`${API_URL}/contacts`, contact);
 
     if (response.status === 201 || response.status === 200) {
@@ -15,7 +14,7 @@ export const createContactService = async (contact: Contact): Promise<void> => {
   } catch (error: unknown) {
     if (error instanceof Error) {
       console.error('Error creating the contact:', error);
-      throw error; // Propagate the error
+      throw error;
     }
   }
 };

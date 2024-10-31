@@ -15,6 +15,7 @@ export const useContacts = () => {
         setLoading(true);
         try {
           const data = await getContacts();
+          console.log('Fetched contacts:', data); // Log fetched contacts
           if (data) {
             setContacts(data);
           }
