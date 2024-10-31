@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Pressable, Text, Alert} from 'react-native';
+import {Pressable, Text, Alert, Linking} from 'react-native';
 import {RootStackParamList} from '../../../App';
 import {RouteProp, useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -12,24 +12,26 @@ export type MapRoutePageProp = NativeStackNavigationProp<
 >;
 
 export interface MapPageProps {
-  route: MapRouteProp;
+  route?: MapRouteProp;
 }
 
-const PressableMap: React.FC<MapPageProps> = () => {
+const PressableMap: React.FC<MapPageProps> = ({route}) => {
   const navigation = useNavigation<MapRoutePageProp>();
-  const [hasPermission, setHasPermission] = useState<
-    boolean | null | undefined
-  >(null);
+  const [hasPermission, setHasPermission] = useState<boolean | null>(null);
 
   const checkInPermission = async () => {
-    const resultPermission = await checkOrRequestLocationPermission();
-    setHasPermission(resultPermission);
-  };
-  useEffect(() => {
-    checkInPermission().catch(error => {
+    try {
+      const resultPermission = await checkOrRequestLocationPermission();
+      setHasPermission(resultPermission ?? false);
+    } catch (error) {
       Alert.alert('Permission Error', 'Could not check location permission.');
       console.error(error);
-    });
+      setHasPermission(false);
+    }
+  };
+
+  useEffect(() => {
+    checkInPermission();
   }, []);
 
   const navigateToMap = () => {
@@ -45,7 +47,12 @@ const PressableMap: React.FC<MapPageProps> = () => {
       <Text>Map</Text>
     </Pressable>
   ) : (
-    <Text>Please allow Permissions in setting to active the map</Text>
+    <>
+      <Text>Please allow Permissions in settings to activate the map</Text>
+      <Pressable onPress={() => Linking.openSettings()}>
+        <Text>Open Settings</Text>
+      </Pressable>
+    </>
   );
 };
 

@@ -32,10 +32,14 @@ export const openGallery = (setImageUri: any) => {
   });
 };
 
-export const checkOrRequestLocationPermission = async () => {
+export const checkOrRequestLocationPermission = async (): Promise<boolean> => {
   const result = await check(PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION);
+
   if (result === RESULTS.GRANTED) {
+    // Permission already granted
+    return true;
   } else if (result === RESULTS.DENIED || result === RESULTS.LIMITED) {
+    // Permission was denied but not permanently
     const requestResult = await request(
       PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION,
     );
@@ -44,15 +48,21 @@ export const checkOrRequestLocationPermission = async () => {
     } else {
       Alert.alert(
         'Permission Denied',
-        'Permission are required to use the map',
+        'Permissions are required to use the map',
       );
+      return false; // Permission not granted after request
     }
-  } else {
+  } else if (result === RESULTS.BLOCKED || result === RESULTS.UNAVAILABLE) {
+    // Permission permanently denied or unavailable
     Alert.alert(
       'Permission Error',
-      'Location  access has been permanently denied. Enable it in settings.',
+      'Location access has been permanently denied. Enable it in settings.',
     );
+    return false;
   }
+
+  // Default return if none of the above cases are matched
+  return false;
 };
 
 export const checkOrRequestCameraPermission = async (setImageUri: any) => {
