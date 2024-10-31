@@ -1,36 +1,17 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Contact} from './getAllContactsService';
-
-export const CONTACTS_KEY = '@contacts_key';
+import axios from 'axios';
+import {Contact} from './types/contactType';
+import {API_URL} from '@env';
 
 export const createContactService = async (contact: Contact): Promise<void> => {
   try {
-    const jsonContacts = await AsyncStorage.getItem(CONTACTS_KEY);
-    let contacts: Contact[] = [];
+    //to do
+    const response = await axios.post(`${API_URL}/contacts`, contact);
 
-    if (jsonContacts) {
-      try {
-        const parsedContacts = JSON.parse(jsonContacts);
-
-        if (Array.isArray(parsedContacts)) {
-          contacts = parsedContacts;
-        } else {
-          console.error('Parsed contacts is not an array:', parsedContacts);
-        }
-      } catch (parseError) {
-        console.error('Error parsing contacts:', parseError);
-      }
-    }
-
-    if (Array.isArray(contacts)) {
-      contacts.push(contact);
+    if (response.status === 201 || response.status === 200) {
+      console.log('Contact successfully saved:', response.data);
     } else {
-      console.error('Contacts variable is not an array:', contacts);
+      console.error('Failed to save contact. Status:', response.status);
     }
-
-    await AsyncStorage.setItem(CONTACTS_KEY, JSON.stringify(contacts));
-
-    console.log('Contacts successfully saved:', contacts);
   } catch (error: unknown) {
     if (error instanceof Error) {
       console.error('Error creating the contact:', error);

@@ -11,7 +11,6 @@ import {
   checkOrRequestCameraPermission,
   checkOrRequestGalleryPermissions,
 } from '../../commun/permisions/checkOrOpen';
-import MapComponent from '../maps/MapScreen';
 import PressableMap from '../SingleContact/Pressable';
 
 type NavigationCreateContactProps = NativeStackNavigationProp<

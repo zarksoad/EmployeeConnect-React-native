@@ -2,8 +2,8 @@ import {useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../../App';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useState} from 'react';
-import {Contact} from '../services/getAllContactsService';
 import {createContactService} from '../services/createContact';
+import {Contact} from '../services/types/contactType';
 
 // Define the type for navigation
 type NavigationCreateContactProps = NativeStackNavigationProp<
@@ -43,12 +43,12 @@ export const useCreateContact = () => {
     if (validationError) {
       setError(validationError);
       setIsLoading(false);
-      return; // Stop execution if validation fails
+      return;
     }
 
     try {
       await createContactService(contact);
-      navigation.navigate('Home'); // Navigate to Home on success
+      navigation.navigate('Home');
     } catch (error: unknown) {
       if (error instanceof Error) {
         setError(error.message || 'Something went wrong');
