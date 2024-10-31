@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {getContact} from '../services/getContactService';
-import {Contact} from '../services/getAllContactsService';
+import {Contact} from '../services/types/contactType';
 
 export const useContact = (contactId: number) => {
   const [contact, setContact] = useState<Contact | undefined>(undefined);

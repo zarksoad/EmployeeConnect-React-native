@@ -1,28 +1,18 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {CONTACTS_KEY} from './createContact';
-import {Contact} from './getAllContactsService';
+import {API_URL} from '@env'; // Ensure this is set in your .env file
+import axios from 'axios';
+import {Contact} from './types/contactType';
 
 export const getContact = async (
   contactId: number,
 ): Promise<Contact | undefined> => {
   try {
-    const jsonContacts = await AsyncStorage.getItem(CONTACTS_KEY);
-    if (jsonContacts !== null) {
-      try {
-        const contactsGet: Contact[] = JSON.parse(jsonContacts);
-        const contact = contactsGet.find(contact => contact.id === contactId);
-        return contact;
-      } catch (parseError) {
-        console.error('Error parsing contacts:', parseError);
-        return undefined;
-      }
+    const response = await axios.get(`${API_URL}/contacts/${contactId}`);
+    return response.data as Contact;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error('Error fetching contact from API:', error.message);
     } else {
-      console.log('No contacts found');
-      return undefined;
-    }
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      console.error('Error fetching contacts:', error);
+      console.error('Unexpected error fetching contact:', error);
     }
     return undefined;
   }

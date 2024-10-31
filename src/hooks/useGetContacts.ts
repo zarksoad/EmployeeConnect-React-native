@@ -1,7 +1,8 @@
 import {useState} from 'react';
 import React from 'react';
-import {Contact, getContacts} from '../services/getAllContactsService';
+import {getContacts} from '../services/getAllContactsService';
 import {useFocusEffect} from '@react-navigation/native';
+import {Contact} from '../services/types/contactType';
 
 export const useContacts = () => {
   const [contacts, setContacts] = useState<Contact[]>([]);

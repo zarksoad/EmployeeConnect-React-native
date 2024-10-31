@@ -1,10 +1,10 @@
 import React from 'react';
 import {Image, Pressable, Text, View} from 'react-native';
 import styles from '../../screens/home/HomeView.style';
-import {Contact} from '../../services/getAllContactsService';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../../App';
 import {useNavigation} from '@react-navigation/native';
+import {Contact} from '../../services/types/contactType';
 
 interface ContactItemProps {
   contact: Contact;
