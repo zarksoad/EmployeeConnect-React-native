@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../../App';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useState} from 'react';
-import {createContactService} from '../services/createContact';
+import {createContactService} from '../services/createContactService';
 import {Contact} from '../services/types/contactType';
 
 // Define the type for navigation

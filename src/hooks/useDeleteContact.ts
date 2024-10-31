@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {deleteContact} from '../services/deleteContact';
+import {deleteContactService} from '../services/deleteContactService';
 
 export const useDeleteContact = () => {
   const [loading, setLoading] = useState(false);
@@ -9,7 +9,7 @@ export const useDeleteContact = () => {
     setLoading(true);
     setError(null);
     try {
-      await deleteContact(contactId);
+      await deleteContactService(contactId);
       return true;
     } catch (err) {
       setError('Failed to delete contact');

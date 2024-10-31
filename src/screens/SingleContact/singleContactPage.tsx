@@ -26,7 +26,6 @@ export interface ContactPageProps {
 
 const ContactPage: React.FC<ContactPageProps> = ({route}) => {
   const {contactId} = route.params;
-  console.log(contactId, 'esta es mi papa');
   const {contact, loading, error} = useContact(contactId);
   const {
     loading: deleting,

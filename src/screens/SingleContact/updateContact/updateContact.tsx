@@ -27,17 +27,12 @@ export interface UpdateContactPageProps {
   route: ContactPageRouteProp;
 }
 
-type NavigationCreateContactProps = NativeStackNavigationProp<
-  RootStackParamList,
-  'CreateContact'
->;
-
 const UpdateForm: React.FC<UpdateContactPageProps> = ({route}) => {
   const {contactId} = route.params;
   const {contact} = useContact(contactId);
   const {updateContact, isLoading, error} = useUpdateContact();
 
-  const navigation = useNavigation<NavigationCreateContactProps>();
+  const navigation = useNavigation<UpdateContactRoutePageProp>();
 
   const [name, setName] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
@@ -49,6 +44,7 @@ const UpdateForm: React.FC<UpdateContactPageProps> = ({route}) => {
       setName(contact.name);
       setPhone(contact.phone);
       setEmail(contact.email);
+      contact.imageUri ? setImageUri(contact.imageUri) : null;
     }
   }, [contact]);
 
@@ -83,7 +79,7 @@ const UpdateForm: React.FC<UpdateContactPageProps> = ({route}) => {
       imageUri,
     };
 
-    await updateContact(updatedContact);
+    await updateContact(updatedContact, contactId.toString());
 
     if (!error) {
       Alert.alert('Success', 'Contact updated successfully');
@@ -121,7 +117,6 @@ const UpdateForm: React.FC<UpdateContactPageProps> = ({route}) => {
 
         {imageUri && <Image source={{uri: imageUri}} style={styles.image} />}
 
-        {/* Replace Button with Pressable */}
         <Pressable
           style={({pressed}) => [
             styles.button,

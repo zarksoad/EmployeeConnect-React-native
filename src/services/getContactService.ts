@@ -7,6 +7,7 @@ export const getContact = async (
 ): Promise<Contact | undefined> => {
   try {
     const response = await axios.get(`${API_URL}/contacts/${contactId}`);
+    console.log(contactId);
     return response.data as Contact;
   } catch (error) {
     if (axios.isAxiosError(error)) {
