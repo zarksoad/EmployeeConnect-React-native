@@ -3,9 +3,8 @@ import {RootStackParamList} from '../../App';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useState} from 'react';
 import {createContactService} from '../services/createContactService';
-import {Contact, ICreateContact} from '../services/types/contactType';
+import {ICreateContact} from '../services/types/contactType';
 
-// Define the type for navigation
 type NavigationCreateContactProps = NativeStackNavigationProp<
   RootStackParamList,
   'CreateContact'
@@ -14,7 +13,7 @@ type NavigationCreateContactProps = NativeStackNavigationProp<
 export const useCreateContact = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const navigation = useNavigation<NavigationCreateContactProps>(); // Type your navigation here
+  const navigation = useNavigation<NavigationCreateContactProps>();
 
   const validateContact = (contact: ICreateContact) => {
     const {name, email, phone} = contact;
@@ -35,10 +34,10 @@ export const useCreateContact = () => {
     return null;
   };
 
-  const createContact = async (contact: Contact) => {
+  const createContact = async (contact: ICreateContact) => {
+    console.log('Data sent to service:', contact);
     setIsLoading(true);
     setError(null);
-
     const validationError = validateContact(contact);
     if (validationError) {
       setError(validationError);

@@ -11,13 +11,20 @@ MapboxGL.setAccessToken(`${MAPBOX_DOWNLOADS_TOKEN}`);
 interface MapPageProps {
   visible: boolean;
   onClose: () => void;
+  onSaveCoordinates: (lat: number, lon: number) => void;
 }
 
-const MapPage: React.FC<MapPageProps> = ({visible, onClose}) => {
+const MapPage: React.FC<MapPageProps> = ({
+  visible,
+  onClose,
+  onSaveCoordinates,
+}) => {
   const [userLocation, setUserLocation] = useState<number[] | null>(null);
   const [selectedCoordinates, setSelectedCoordinates] = useState<
     number[] | null
   >(null);
+
+  const medellinCoordinates = [64.1355, 21.8954];
 
   const fetchUserLocation = async () => {
     const hasPermission = await checkOrRequestLocationPermission();
@@ -34,8 +41,11 @@ const MapPage: React.FC<MapPageProps> = ({visible, onClose}) => {
         const {latitude, longitude} = position.coords;
         setUserLocation([longitude, latitude]);
       },
-      error => Alert.alert('Location Error', 'Could not fetch location.'),
-      {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+      error => {
+        Alert.alert('Location Error', error.message);
+        console.log('Location error:', error);
+        setUserLocation(medellinCoordinates);
+      },
     );
   };
 
@@ -51,9 +61,11 @@ const MapPage: React.FC<MapPageProps> = ({visible, onClose}) => {
 
   const saveCoordinates = () => {
     if (selectedCoordinates) {
+      const [longitude, latitude] = selectedCoordinates;
+      onSaveCoordinates(latitude, longitude);
       Alert.alert(
-        'Coordinates saved',
-        `Longitude: ${selectedCoordinates[0]}, Latitude: ${selectedCoordinates[1]}`,
+        'Coordinates Saved',
+        `Longitude: ${longitude}, Latitude: ${latitude}`,
       );
     } else {
       Alert.alert(

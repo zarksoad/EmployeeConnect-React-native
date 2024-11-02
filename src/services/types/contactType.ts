@@ -11,7 +11,7 @@ export interface ICreateContact {
   name: string;
   phone: string;
   email: string;
-  longitude?: number;
   latitude?: number;
+  longitude?: number;
   imageUri?: string | null;
 }

@@ -7,6 +7,7 @@ export const createContactService = async (
 ): Promise<void> => {
   try {
     //comment
+    console.log(contact, 'contactServices');
     const response = await axios.post(`${API_URL}/contacts`, contact);
 
     if (response.status === 201 || response.status === 200) {

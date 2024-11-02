@@ -23,10 +23,18 @@ const CreateContactForm: React.FC = () => {
   const [name, setName] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const [email, setEmail] = useState<string>('');
-  const [imageUri, setImageUri] = useState<string | null>(null);
-  const [latitude, setLatitude] = useState<number | null>(null);
-  const [longitude, setLongitude] = useState<number | null>(null);
+  const [imageUri, setImageUri] = useState<string | null | undefined>(null);
+  const [latitude, setLatitude] = useState<number | undefined>(undefined);
+  const [longitude, setLongitude] = useState<number | undefined>(undefined);
   const [showMap, setShowMap] = useState(false);
+
+  const handleSaveCoordinates = (lat: number, lon: number) => {
+    console.log('Received coordinates:', lat, lon); //
+    setLatitude(lat);
+    setLongitude(lon);
+    setShowMap(false);
+    Alert.alert('Coordinates Saved', `Lat: ${lat}, Lon: ${lon}`);
+  };
 
   const validateInputs = () => {
     if (!name) {
@@ -47,15 +55,16 @@ const CreateContactForm: React.FC = () => {
 
   const handleSubmit = async () => {
     if (!validateInputs()) return;
-    await createContact({name, phone, email, imageUri});
+    console.log('Coordinates before submission:', latitude, longitude);
+    await createContact({name, phone, email, imageUri, latitude, longitude});
     if (!error) {
       Alert.alert('Success', 'Contact added successfully');
       setName('');
       setPhone('');
       setEmail('');
-      setImageUri(null);
-      setLatitude(null);
-      setLongitude(null);
+      setImageUri(undefined);
+      setLatitude(Number);
+      setLongitude(Number);
       navigation.navigate('Home');
     } else {
       Alert.alert('Error', error || 'Failed to create contact');
@@ -112,9 +121,12 @@ const CreateContactForm: React.FC = () => {
       </Pressable>
       {error && <Text style={styles.errorText}>{error}</Text>}
 
-      <MapPage visible={showMap} onClose={() => setShowMap(false)} />
+      <MapPage
+        visible={showMap}
+        onClose={() => setShowMap(false)}
+        onSaveCoordinates={handleSaveCoordinates}
+      />
     </View>
   );
 };
-
 export default CreateContactForm;
