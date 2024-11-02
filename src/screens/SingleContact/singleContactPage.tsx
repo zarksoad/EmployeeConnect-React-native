@@ -13,6 +13,8 @@ import {useContact} from '../../hooks/useGetContact';
 import {useDeleteContact} from '../../hooks/useDeleteContact';
 import styles from './contactPage.style';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import WeatherEmojiComponent from '../../components/weather/WeatherEmoji';
+import WeatherIconComponent from '../../components/weather/WeathterIcon';
 
 export type ContactPageRouteProp = RouteProp<RootStackParamList, 'ContactPage'>;
 export type UpdateContactRoutePageProp = NativeStackNavigationProp<
@@ -32,6 +34,8 @@ const ContactPage: React.FC<ContactPageProps> = ({route}) => {
     error: deleteError,
     handleDeleteContact,
   } = useDeleteContact();
+  const latitude = 6.2442;
+  const longitude = -75.5812;
   const navigation = useNavigation<UpdateContactRoutePageProp>();
 
   const handleDelete = () => {
@@ -105,11 +109,12 @@ const ContactPage: React.FC<ContactPageProps> = ({route}) => {
         <TouchableOpacity
           style={styles.updateButton}
           onPress={navigateToUpdate}>
-          <Text style={{color: '#fff'}}>Update</Text>
+          <Text style={{color: '#fff'}}>Updateu</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
           <Text style={{color: '#fff'}}>Delete</Text>
         </TouchableOpacity>
+        <WeatherEmojiComponent lat={latitude} lon={longitude} />
       </View>
     </View>
   );

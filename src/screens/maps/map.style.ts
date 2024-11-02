@@ -1,40 +1,41 @@
+// In map.style.js
 import {StyleSheet} from 'react-native';
 
 const mapStyles = StyleSheet.create({
-  container: {
+  modalContainer: {
     flex: 1,
+    backgroundColor: 'white',
+    justifyContent: 'flex-end',
   },
   map: {
     flex: 1,
   },
   coordinateContainer: {
-    position: 'absolute',
-    bottom: 20,
-    left: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    padding: 10,
-    borderRadius: 8,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 5,
-  },
-  marker: {
-    width: 20,
-    height: 20,
-    backgroundColor: 'red',
-    borderRadius: 10,
-    borderColor: 'white',
-    borderWidth: 2,
+    padding: 20,
+    backgroundColor: 'white',
   },
   userMarker: {
-    width: 25,
-    height: 25,
+    height: 30,
+    width: 30,
     backgroundColor: 'blue',
-    borderRadius: 12.5,
-    borderColor: 'white',
-    borderWidth: 2,
+    borderRadius: 15,
+  },
+  marker: {
+    height: 30,
+    width: 30,
+    backgroundColor: 'red',
+    borderRadius: 15,
+  },
+  button: {
+    marginTop: 10,
+    padding: 10,
+    backgroundColor: '#007BFF',
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
   },
 });
 

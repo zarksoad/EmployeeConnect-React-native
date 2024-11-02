@@ -4,51 +4,37 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    justifyContent: 'center',
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#fff',
   },
   input: {
-    color: 'blue',
-    height: 50,
-    borderColor: '#ccc',
+    height: 40,
+    borderColor: 'gray',
     borderWidth: 1,
-    borderRadius: 5,
+    marginBottom: 10,
     paddingHorizontal: 10,
-    marginBottom: 15,
+  },
+  image: {
+    width: 100,
+    height: 100,
+    marginVertical: 10,
   },
   button: {
-    marginBottom: 10,
+    backgroundColor: 'blue',
+    padding: 10,
     borderRadius: 5,
+    alignItems: 'center',
+    marginBottom: 10,
   },
   buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
+    color: 'white',
+    fontSize: 16,
+  },
+  disabledButton: {
+    backgroundColor: 'gray',
   },
   errorText: {
     color: 'red',
-    textAlign: 'center',
-    marginVertical: 10,
-  },
-  image: {
-    width: 200,
-    height: 200,
-    borderRadius: 100,
-    marginBottom: 15,
-    alignSelf: 'center',
-  },
-  page: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  containerMap: {
-    height: 300,
-    width: 300,
-    backgroundColor: 'tomato',
-  },
-  map: {
-    flex: 1,
+    marginTop: 10,
   },
 });
 

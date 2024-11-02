@@ -1,3 +1,18 @@
 {
-  "contacts": []
+  "contacts": [
+    {
+      "id": "5f08",
+      "name": "Pa herman",
+      "phone": "96184384",
+      "email": "zarksoad@gmail.com",
+      "imageUri": "file:///data/user/0/com.CloseToYou/cache/rn_image_picker_lib_temp_000925d5-2e23-4935-a7af-a96547a2ac1d.jpg"
+    },
+    {
+      "id": "0e91",
+      "name": "Hernan",
+      "phone": "23184664",
+      "email": "zarksoad@gmail.com",
+      "imageUri": "file:///data/user/0/com.CloseToYou/cache/rn_image_picker_lib_temp_c46381d3-ba39-4e00-8db3-12320cd7079a.jpg"
+    }
+  ]
 }

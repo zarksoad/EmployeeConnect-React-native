@@ -6,6 +6,7 @@ export const getContact = async (
   contactId: number,
 ): Promise<Contact | undefined> => {
   try {
+    //contact
     const response = await axios.get(`${API_URL}/contacts/${contactId}`);
     console.log(contactId);
     return response.data as Contact;

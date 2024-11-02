@@ -1,11 +1,11 @@
 markdown
 
-# EmployeeConnect
+# CloseToYou
 
-EmployeeConnect is a React Native application designed to connect employees efficiently. This README provides instructions on how to set up and run the project.
+CloseToYou is a React Native application designed to connect employees efficiently. This README provides instructions on how to set up and run the project.
 
 ## Table of Contents
-- [EmployeeConnect](#employeeconnect)
+- [CloseToYou](#CloseToYou)
   - [Table of Contents](#table-of-contents)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
@@ -25,13 +25,13 @@ Before you begin, ensure you have the following installed on your machine:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/zarksoad/EmployeeConnect-React-native.git
+   git clone https://github.com/zarksoad/CloseToYou-React-native.git
 
     Navigate to the project directory:
 
     bash
 
-cd EmployeeConnect-React-native
+cd CloseToYou-React-native
 
 Install the project dependencies:
 

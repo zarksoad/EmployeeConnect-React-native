@@ -8,6 +8,7 @@ export const updateContactService = async (
   contactId: string,
 ): Promise<void> => {
   try {
+    //coment
     await axios.put(`${API_URL}/contacts/${contactId}`, updatedContact);
     console.log('I arrive to the service ');
   } catch (error) {

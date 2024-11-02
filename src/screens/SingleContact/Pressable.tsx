@@ -13,9 +13,11 @@ export type MapRoutePageProp = NativeStackNavigationProp<
 
 export interface MapPageProps {
   route?: MapRouteProp;
+  latitude: number;
+  longitude: number;
 }
 
-const PressableMap: React.FC<MapPageProps> = ({route}) => {
+const PressableMap: React.FC<MapPageProps> = ({latitude, longitude}) => {
   const navigation = useNavigation<MapRoutePageProp>();
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
 

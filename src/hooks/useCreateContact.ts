@@ -3,7 +3,7 @@ import {RootStackParamList} from '../../App';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useState} from 'react';
 import {createContactService} from '../services/createContactService';
-import {Contact} from '../services/types/contactType';
+import {Contact, ICreateContact} from '../services/types/contactType';
 
 // Define the type for navigation
 type NavigationCreateContactProps = NativeStackNavigationProp<
@@ -16,7 +16,7 @@ export const useCreateContact = () => {
   const [error, setError] = useState<string | null>(null);
   const navigation = useNavigation<NavigationCreateContactProps>(); // Type your navigation here
 
-  const validateContact = (contact: Contact) => {
+  const validateContact = (contact: ICreateContact) => {
     const {name, email, phone} = contact;
 
     if (!name) {

@@ -33,7 +33,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
   return (
     <View style={stylesSplash.container}>
       <Animated.View style={{...stylesSplash.animatedView, opacity}}>
-        <Text style={stylesSplash.text}>EmployeeConnect!</Text>
+        <Text style={stylesSplash.text}>CloseToYou!</Text>
       </Animated.View>
     </View>
   );

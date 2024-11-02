@@ -1,4 +1,4 @@
-package com.employeeconnect
+package com.CloseToYou
 
 import android.app.Application
 import com.facebook.react.PackageList

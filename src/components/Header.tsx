@@ -4,7 +4,7 @@ import stylesHeader from './Header.styles';
 const Header = () => {
   return (
     <View style={stylesHeader.container}>
-      <Text style={stylesHeader.text}>EmployeeConnect</Text>
+      <Text style={stylesHeader.text}>CloseToYou</Text>
       <Image
         source={require('../assets/main-icon.png')}
         style={stylesHeader.image}

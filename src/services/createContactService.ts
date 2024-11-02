@@ -1,9 +1,12 @@
 import axios from 'axios';
-import {Contact} from './types/contactType';
+import {ICreateContact} from './types/contactType';
 import {API_URL} from '@env';
 
-export const createContactService = async (contact: Contact): Promise<void> => {
+export const createContactService = async (
+  contact: ICreateContact,
+): Promise<void> => {
   try {
+    //comment
     const response = await axios.post(`${API_URL}/contacts`, contact);
 
     if (response.status === 201 || response.status === 200) {

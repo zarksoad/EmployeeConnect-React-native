@@ -5,6 +5,7 @@ export const deleteContactService = async (
   contactId: number,
 ): Promise<void> => {
   try {
+    //coment
     await axios.delete(`${API_URL}/contacts/${contactId}`);
     console.log(`Contact with id ${contactId} deleted successfully`);
   } catch (error) {
