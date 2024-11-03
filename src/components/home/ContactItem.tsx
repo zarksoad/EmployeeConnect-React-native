@@ -41,7 +41,14 @@ const ContactItem: React.FC<ContactItemProps> = ({contact, onPress}) => {
       />
       <View style={styles.contactDetails}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Icon name="person" style={{width: 20, height: 20, marginRight: 4}} />
+          <Icon
+            name="person"
+            style={{
+              width: 20,
+              height: 20,
+              marginRight: 4,
+            }}
+          />
           <Text style={styles.contactName}>
             {contact?.name || 'Unnamed Contact'}
           </Text>

@@ -12,7 +12,7 @@ interface ContactMapProps {
 
 const ContactMap: React.FC<ContactMapProps> = ({latitude, longitude}) => {
   return (
-    <View style={{width: 300, height: 300, backgroundColor: 'lightgrey'}}>
+    <View style={{width: 150, height: 150, backgroundColor: 'lightgrey'}}>
       <MapboxGL.MapView style={{flex: 1}}>
         <MapboxGL.Camera
           centerCoordinate={[longitude, latitude]}

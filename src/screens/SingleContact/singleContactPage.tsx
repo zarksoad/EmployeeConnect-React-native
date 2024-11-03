@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   ActivityIndicator,
-  Text,
   View,
   Alert,
   Image,
@@ -13,6 +12,7 @@ import {useContact} from '../../hooks/useGetContact';
 import {useDeleteContact} from '../../hooks/useDeleteContact';
 import styles from './contactPage.style';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {Icon, Text} from '@ui-kitten/components';
 import WeatherEmojiComponent from '../../components/weather/WeatherEmoji';
 import ContactMap from '../../components/singleContact/contactMap';
 
@@ -65,12 +65,12 @@ const ContactPage: React.FC<ContactPageProps> = ({route}) => {
   };
 
   if (loading || deleting) {
-    return <ActivityIndicator size="large" color="#0000ff" />;
+    return <ActivityIndicator size="large" color="#007bff" />;
   }
 
   if (error) {
     return (
-      <View>
+      <View style={styles.container}>
         <Text>Error: {error}</Text>
       </View>
     );
@@ -78,7 +78,7 @@ const ContactPage: React.FC<ContactPageProps> = ({route}) => {
 
   if (deleteError) {
     return (
-      <View>
+      <View style={styles.container}>
         <Text>Error deleting contact: {deleteError}</Text>
       </View>
     );
@@ -86,7 +86,7 @@ const ContactPage: React.FC<ContactPageProps> = ({route}) => {
 
   if (!contact) {
     return (
-      <View>
+      <View style={styles.container}>
         <Text>No contact found</Text>
       </View>
     );
@@ -94,37 +94,52 @@ const ContactPage: React.FC<ContactPageProps> = ({route}) => {
 
   const defaultImageUri = require('../../assets/default-image.png');
 
-  const latitude = contact.latitude !== undefined ? contact.latitude : 0;
-  const longitude = contact.longitude !== undefined ? contact.longitude : 0;
-
   return (
     <View style={styles.container}>
-      <Image
-        source={contact.imageUri ? {uri: contact.imageUri} : defaultImageUri}
-        style={styles.contactImage}
-      />
-      <Text style={styles.contactName}>{contact.name}</Text>
-      <Text style={styles.contactInfo}>Phone: {contact.phone}</Text>
-      <Text style={styles.contactInfo}>Email: {contact.email}</Text>
-      <View style={styles.button}>
-        <TouchableOpacity
-          style={styles.updateButton}
-          onPress={navigateToUpdate}>
-          <Text style={{color: '#fff'}}>Update</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
-          <Text style={{color: '#fff'}}>Delete</Text>
-        </TouchableOpacity>
-        <WeatherEmojiComponent
-          lat={contact.latitude || longitude}
-          lon={contact.latitude || latitude}
+      <View style={styles.contactCard}>
+        <View style={styles.iconContainer}>
+          <TouchableOpacity
+            style={styles.iconButton}
+            onPress={navigateToUpdate}>
+            <Icon name="edit" style={[styles.icon, styles.updateIcon]} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.iconButton} onPress={handleDelete}>
+            <Icon name="trash-2" style={[styles.icon, styles.trashIcon]} />
+          </TouchableOpacity>
+        </View>
+        <Image
+          source={contact.imageUri ? {uri: contact.imageUri} : defaultImageUri}
+          style={styles.contactImage}
         />
+        <Text style={styles.contactName}>{contact.name}</Text>
+        <View style={styles.contactInfo}>
+          <Text style={styles.infoLabel}>Contact Info:</Text>
+          <Text style={styles.infoText}>
+            <Icon name="phone" style={styles.infoIcon} />
+            {contact.phone}
+          </Text>
+          <Text style={styles.infoText}>
+            <Icon name="email" style={styles.infoIcon} />
+            {contact.email}
+          </Text>
+        </View>
+
+        {contact.latitude && contact.longitude ? (
+          <>
+            <Text style={styles.locationLabel}>Location:</Text>
+            <WeatherEmojiComponent
+              lat={contact.latitude}
+              lon={contact.longitude}
+            />
+            <ContactMap
+              latitude={contact.latitude}
+              longitude={contact.longitude}
+            />
+          </>
+        ) : (
+          <Text>No map available for this contact.</Text>
+        )}
       </View>
-      {contact.latitude && contact.longitude ? (
-        <ContactMap latitude={contact.latitude} longitude={contact.longitude} />
-      ) : (
-        <Text>No map available for this contact.</Text>
-      )}
     </View>
   );
 };

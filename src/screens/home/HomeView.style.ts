@@ -6,7 +6,7 @@ const styles = StyleService.create({
     backgroundColor: '#f5f5f5',
   },
   contactItem: {
-    backgroundColor: 'white',
+    backgroundColor: '#FAF0E6',
     padding: 20,
     borderRadius: 15,
     marginBottom: 15,
@@ -33,15 +33,12 @@ const styles = StyleService.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
-    color: '#3366FF',
   },
   contactPhone: {
     fontSize: 16,
-    color: '#3366FF',
   },
   contactEmail: {
     fontSize: 16,
-    color: '#3366FF',
   },
 });
 
