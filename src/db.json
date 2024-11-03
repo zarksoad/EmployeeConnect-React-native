@@ -31,6 +31,15 @@
       "imageUri": null,
       "latitude": 6.244872538434862,
       "longitude": -75.5493037123395
+    },
+    {
+      "id": "c6c4",
+      "name": "Andrés ",
+      "phone": "+573017432082",
+      "email": "zarksoad@gmail.com",
+      "imageUri": "file:///data/user/0/com.CloseToYou/cache/rn_image_picker_lib_temp_811e83f8-0546-4569-885f-c6f918012950.jpg",
+      "latitude": 6.244340367386059,
+      "longitude": -75.54604619157358
     }
   ]
 }

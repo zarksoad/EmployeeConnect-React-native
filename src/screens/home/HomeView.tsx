@@ -9,8 +9,8 @@ import {Text, Divider} from '@ui-kitten/components';
 import styles from './HomeView.style';
 import {useContacts} from '../../hooks/useGetContacts';
 import ContactItem from '../../components/home/ContactItem';
-import CreateContact from '../../components/home/createContactButton';
 import {Contact} from '../../services/types/contactType';
+import PlusButton from '../../components/home/createContactButton';
 
 interface ContactSection extends SectionListData<Contact> {
   title: string;
@@ -75,7 +75,7 @@ const Home: React.FC = () => {
         stickySectionHeadersEnabled={true}
         ItemSeparatorComponent={() => <Divider style={{marginVertical: 4}} />}
       />
-      <CreateContact />
+      <PlusButton />
     </View>
   );
 };

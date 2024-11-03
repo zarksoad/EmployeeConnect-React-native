@@ -18,13 +18,13 @@ const styles = StyleService.create({
     borderWidth: 1,
     borderColor: '#e0e0e0',
     flexDirection: 'row',
-    alignItems: 'center', // Use alignItems to vertically center
+    alignItems: 'center',
   },
   contactImage: {
     width: 50,
     height: 50,
     borderRadius: 25,
-    marginRight: 10, // Add margin to separate the image from text
+    marginRight: 10,
   },
   contactDetails: {
     flex: 1,
@@ -33,11 +33,11 @@ const styles = StyleService.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
-    color: '#3366FF', // Changed to hex for consistency with Kitten
+    color: '#3366FF',
   },
   contactPhone: {
     fontSize: 16,
-    color: '#3366FF', // Same as contact name for uniformity
+    color: '#3366FF',
   },
   contactEmail: {
     fontSize: 16,

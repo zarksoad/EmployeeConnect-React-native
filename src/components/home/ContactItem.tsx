@@ -6,7 +6,6 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../../App';
 import {useNavigation} from '@react-navigation/native';
 import {Contact} from '../../services/types/contactType';
-import {EvaIconsPack} from '@ui-kitten/eva-icons';
 
 interface ContactItemProps {
   contact: Contact;
@@ -43,18 +42,19 @@ const ContactItem: React.FC<ContactItemProps> = ({contact, onPress}) => {
       <View style={styles.contactDetails}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Icon name="person" style={{width: 20, height: 20, marginRight: 4}} />
-
           <Text style={styles.contactName}>
             {contact?.name || 'Unnamed Contact'}
           </Text>
         </View>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Icon name="phone" style={{width: 20, height: 20}} />
+        <View
+          style={{flexDirection: 'row', alignItems: 'center', marginTop: 4}}>
+          <Icon name="phone" style={{width: 20, height: 20, marginRight: 4}} />
           <Text style={styles.contactPhone}>
             {contact?.phone || 'No Phone'}
           </Text>
         </View>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <View
+          style={{flexDirection: 'row', alignItems: 'center', marginTop: 4}}>
           <Icon name="email" style={{width: 20, height: 20, marginRight: 4}} />
           <Text style={styles.contactEmail}>
             {contact?.email || 'No Email'}

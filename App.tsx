@@ -1,15 +1,14 @@
 import React from 'react';
 import {NavigationContainer, ParamListBase} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {ApplicationProvider} from '@ui-kitten/components';
-import * as eva from '@eva-design/eva'; // Importing Eva design system
+import {ApplicationProvider, IconRegistry} from '@ui-kitten/components';
+import * as eva from '@eva-design/eva';
+import {EvaIconsPack} from '@ui-kitten/eva-icons';
 import Header from './src/components/Header';
-import SplashScreen from './src/components/SplashScreen';
 import CreateContactForm from './src/screens/create/createContactView';
 import ContactPage from './src/screens/SingleContact/singleContactPage';
 import Home from './src/screens/home/HomeView';
 import UpdateContactPage from './src/screens/SingleContact/updateContact/updateContact';
-import MapPage from './src/screens/maps/MapScreen';
 
 export interface RootStackParamList extends ParamListBase {
   Home: undefined;
@@ -25,10 +24,10 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function App() {
   return (
     <ApplicationProvider {...eva} theme={eva.light}>
+      <IconRegistry icons={EvaIconsPack} />
       <NavigationContainer>
         <Header />
-        <Stack.Navigator initialRouteName="Splash">
-          <Stack.Screen name="Splash" component={SplashScreen} />
+        <Stack.Navigator initialRouteName="Home">
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="CreateContact" component={CreateContactForm} />
           <Stack.Screen name="ContactPage" component={ContactPage} />
