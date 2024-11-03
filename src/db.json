@@ -1,40 +1,40 @@
 {
   "contacts": [
     {
-      "id": "8fd0",
-      "name": "Hoakjs",
-      "phone": "93454",
+      "id": "af01",
+      "name": "New contact ",
+      "phone": "+573017432082",
       "email": "zarksoad@gmail.com",
       "imageUri": null,
-      "latitude": 9.80150294149955,
-      "longitude": 7.240456293785172
+      "latitude": 6.241750007996231,
+      "longitude": -75.54005715936607
     },
     {
-      "id": "d6ec",
-      "name": "Hernan",
-      "phone": "94364",
+      "id": "118b",
+      "name": "Mimi",
+      "phone": "61354345",
       "email": "zarksoad@gmail.com",
-      "imageUri": null,
-      "latitude": 68.27379781295448,
-      "longitude": -41.77954887016125
+      "imageUri": "file:///data/user/0/com.CloseToYou/cache/rn_image_picker_lib_temp_b3b8666a-e63e-4505-8809-b9169d9a5118.jpg",
+      "latitude": 6.331721786614835,
+      "longitude": -75.55876768238406
     },
     {
-      "id": "f354",
-      "name": "Hi",
-      "phone": "81384",
+      "id": "954f",
+      "name": "Pool",
+      "phone": "8316464",
       "email": "zarksoad@gmail.com",
-      "imageUri": null,
-      "latitude": 16.400360952726686,
-      "longitude": 9.166576969105336
+      "imageUri": "file:///data/user/0/com.CloseToYou/cache/rn_image_picker_lib_temp_7cc294d8-a4b4-48f7-9639-8c6b4ada28f8.jpg",
+      "latitude": 77.064311017839,
+      "longitude": -43.219661904985514
     },
     {
-      "id": "b9df",
-      "name": "Husjs",
-      "phone": "6138434",
+      "id": "0a5f",
+      "name": "Calor",
+      "phone": "53154",
       "email": "zarksoad@gmail.com",
       "imageUri": null,
-      "latitude": -16.657404528306756,
-      "longitude": 9.360444632100268
+      "latitude": 26.738381573519987,
+      "longitude": 3.803766174165645
     }
   ]
 }

@@ -14,7 +14,7 @@ import {useDeleteContact} from '../../hooks/useDeleteContact';
 import styles from './contactPage.style';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import WeatherEmojiComponent from '../../components/weather/WeatherEmoji';
-import WeatherIconComponent from '../../components/weather/WeathterIcon';
+import ContactMap from '../../components/singleContact/contactMap';
 
 export type ContactPageRouteProp = RouteProp<RootStackParamList, 'ContactPage'>;
 export type UpdateContactRoutePageProp = NativeStackNavigationProp<
@@ -34,8 +34,6 @@ const ContactPage: React.FC<ContactPageProps> = ({route}) => {
     error: deleteError,
     handleDeleteContact,
   } = useDeleteContact();
-  const latitude = 6.2442;
-  const longitude = -75.5812;
   const navigation = useNavigation<UpdateContactRoutePageProp>();
 
   const handleDelete = () => {
@@ -96,6 +94,9 @@ const ContactPage: React.FC<ContactPageProps> = ({route}) => {
 
   const defaultImageUri = require('../../assets/default-image.png');
 
+  const latitude = contact.latitude !== undefined ? contact.latitude : 0;
+  const longitude = contact.longitude !== undefined ? contact.longitude : 0;
+
   return (
     <View style={styles.container}>
       <Image
@@ -103,19 +104,27 @@ const ContactPage: React.FC<ContactPageProps> = ({route}) => {
         style={styles.contactImage}
       />
       <Text style={styles.contactName}>{contact.name}</Text>
-      <Text style={styles.contactInfo}>Phone:{contact.phone}</Text>
+      <Text style={styles.contactInfo}>Phone: {contact.phone}</Text>
       <Text style={styles.contactInfo}>Email: {contact.email}</Text>
       <View style={styles.button}>
         <TouchableOpacity
           style={styles.updateButton}
           onPress={navigateToUpdate}>
-          <Text style={{color: '#fff'}}>Updateu</Text>
+          <Text style={{color: '#fff'}}>Update</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
           <Text style={{color: '#fff'}}>Delete</Text>
         </TouchableOpacity>
-        <WeatherEmojiComponent lat={latitude} lon={longitude} />
+        <WeatherEmojiComponent
+          lat={contact.latitude || longitude}
+          lon={contact.latitude || latitude}
+        />
       </View>
+      {contact.latitude && contact.longitude ? (
+        <ContactMap latitude={contact.latitude} longitude={contact.longitude} />
+      ) : (
+        <Text>No map available for this contact.</Text>
+      )}
     </View>
   );
 };
