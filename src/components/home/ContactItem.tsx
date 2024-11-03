@@ -1,10 +1,12 @@
 import React from 'react';
-import {Image, Pressable, Text, View} from 'react-native';
+import {Image, Pressable, View} from 'react-native';
+import {Text, Icon} from '@ui-kitten/components';
 import styles from '../../screens/home/HomeView.style';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../../App';
 import {useNavigation} from '@react-navigation/native';
 import {Contact} from '../../services/types/contactType';
+import {EvaIconsPack} from '@ui-kitten/eva-icons';
 
 interface ContactItemProps {
   contact: Contact;
@@ -20,32 +22,44 @@ const ContactItem: React.FC<ContactItemProps> = ({contact, onPress}) => {
   const navigation = useNavigation<NavigationContact>();
 
   const handlePress = () => {
-    if (contact.id !== undefined) {
+    if (contact && contact.id !== undefined) {
       onPress(contact.id);
       navigation.navigate('ContactPage', {contactId: contact.id});
     } else {
-      console.warn(`Contact Id is undefined for ${contact.name}`);
+      console.warn(
+        `Contact Id is undefined for ${contact?.name || 'Unknown Contact'}`,
+      );
     }
   };
 
   const defaultImageUri = require('../../assets/default-image.png');
 
   return (
-    <Pressable
-      onPress={handlePress}
-      style={{
-        ...styles.contactItem,
-      }}>
-      <View>
-        <Image
-          source={contact.imageUri ? {uri: contact.imageUri} : defaultImageUri}
-          style={{width: 50, height: 50, borderRadius: 25}}
-        />
-        <Text style={styles.contactName}>{contact.name}</Text>
-      </View>
-      <View>
-        <Text style={styles.contactPhone}>{contact.phone}</Text>
-        <Text style={styles.contactPhone}>{contact.email}</Text>
+    <Pressable onPress={handlePress} style={styles.contactItem}>
+      <Image
+        source={contact?.imageUri ? {uri: contact.imageUri} : defaultImageUri}
+        style={styles.contactImage}
+      />
+      <View style={styles.contactDetails}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Icon name="person" style={{width: 20, height: 20, marginRight: 4}} />
+
+          <Text style={styles.contactName}>
+            {contact?.name || 'Unnamed Contact'}
+          </Text>
+        </View>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Icon name="phone" style={{width: 20, height: 20}} />
+          <Text style={styles.contactPhone}>
+            {contact?.phone || 'No Phone'}
+          </Text>
+        </View>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Icon name="email" style={{width: 20, height: 20, marginRight: 4}} />
+          <Text style={styles.contactEmail}>
+            {contact?.email || 'No Email'}
+          </Text>
+        </View>
       </View>
     </Pressable>
   );

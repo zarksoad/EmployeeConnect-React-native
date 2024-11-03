@@ -12,7 +12,8 @@ import {
   checkOrRequestCameraPermission,
   checkOrRequestGalleryPermissions,
 } from '../../../commun/permisions/checkOrOpen';
-import {Pressable} from 'react-native'; // Import Pressable
+import {Pressable} from 'react-native';
+import MapPage from '../../maps/MapScreen';
 
 export type ContactPageRouteProp = RouteProp<
   RootStackParamList,
@@ -34,10 +35,16 @@ const UpdateForm: React.FC<UpdateContactPageProps> = ({route}) => {
 
   const navigation = useNavigation<UpdateContactRoutePageProp>();
 
+  // State for contact fields
   const [name, setName] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [imageUri, setImageUri] = useState<string | null>(null);
+
+  // New state for latitude and longitude
+  const [latitude, setLatitude] = useState<number | undefined>(undefined);
+  const [longitude, setLongitude] = useState<number | undefined>(undefined);
+  const [showMap, setShowMap] = useState(false); // For showing map modal
 
   useEffect(() => {
     if (contact) {
@@ -45,6 +52,9 @@ const UpdateForm: React.FC<UpdateContactPageProps> = ({route}) => {
       setPhone(contact.phone);
       setEmail(contact.email);
       contact.imageUri ? setImageUri(contact.imageUri) : null;
+      // Set latitude and longitude from the contact
+      setLatitude(contact.latitude);
+      setLongitude(contact.longitude);
     }
   }, [contact]);
 
@@ -65,6 +75,11 @@ const UpdateForm: React.FC<UpdateContactPageProps> = ({route}) => {
       return false;
     }
 
+    if (latitude === undefined || longitude === undefined) {
+      Alert.alert('Validation Error', 'Location is required');
+      return false;
+    }
+
     return true;
   };
 
@@ -77,6 +92,8 @@ const UpdateForm: React.FC<UpdateContactPageProps> = ({route}) => {
       phone,
       email,
       imageUri,
+      latitude, // Include latitude
+      longitude, // Include longitude
     };
 
     await updateContact(updatedContact, contactId.toString());
@@ -135,6 +152,16 @@ const UpdateForm: React.FC<UpdateContactPageProps> = ({route}) => {
           <Text style={styles.buttonText}>Select from Gallery</Text>
         </Pressable>
 
+        {/* Button to open map for selecting coordinates */}
+        <Pressable
+          style={({pressed}) => [
+            styles.button,
+            {backgroundColor: pressed ? 'lightblue' : 'blue'},
+          ]}
+          onPress={() => setShowMap(true)}>
+          <Text style={styles.buttonText}>Select Location</Text>
+        </Pressable>
+
         <Pressable
           style={({pressed}) => [
             styles.button,
@@ -148,6 +175,17 @@ const UpdateForm: React.FC<UpdateContactPageProps> = ({route}) => {
         </Pressable>
 
         {error && <Text style={styles.errorText}>{error}</Text>}
+
+        {/* Include the Map component for selecting coordinates */}
+        <MapPage
+          visible={showMap}
+          onClose={() => setShowMap(false)}
+          onSaveCoordinates={(lat: number, lon: number) => {
+            setLatitude(lat);
+            setLongitude(lon);
+            setShowMap(false);
+          }}
+        />
       </View>
     </View>
   );

@@ -1,9 +1,40 @@
 import React, {useState} from 'react';
-import {View, FlatList, ActivityIndicator} from 'react-native';
+import {
+  View,
+  ActivityIndicator,
+  SectionList,
+  SectionListData,
+} from 'react-native';
+import {Text, Divider} from '@ui-kitten/components';
 import styles from './HomeView.style';
 import {useContacts} from '../../hooks/useGetContacts';
 import ContactItem from '../../components/home/ContactItem';
 import CreateContact from '../../components/home/createContactButton';
+import {Contact} from '../../services/types/contactType';
+
+interface ContactSection extends SectionListData<Contact> {
+  title: string;
+}
+
+const groupContactsByInitial = (contacts: Contact[]): ContactSection[] => {
+  const groupedContacts: {[key: string]: Contact[]} = {};
+
+  contacts.forEach(contact => {
+    const initial = contact.name.charAt(0).toUpperCase();
+    if (!groupedContacts[initial]) {
+      groupedContacts[initial] = [];
+    }
+    groupedContacts[initial].push(contact);
+  });
+
+  return Object.keys(groupedContacts)
+    .sort()
+    .map(initial => ({
+      title: initial,
+      data: groupedContacts[initial],
+    }));
+};
+
 const Home: React.FC = () => {
   const {contacts, loading} = useContacts();
   const [selectedContactId, setSelectedContactId] = useState<number | null>(
@@ -14,21 +45,35 @@ const Home: React.FC = () => {
     return <ActivityIndicator size="large" color="#0000ff" />;
   }
 
+  // Log contacts to check their structure
+  console.log('Contacts:', contacts);
+
   const handleContactPress = (id: number) => {
     setSelectedContactId(prevId => (prevId === id ? null : id));
   };
 
+  const groupedContacts = groupContactsByInitial(contacts);
+
   return (
     <View style={styles.container}>
-      <FlatList
-        data={contacts}
-        keyExtractor={item => item.id!.toString()}
+      <SectionList
+        sections={groupedContacts}
+        keyExtractor={item => item.id.toString()}
         renderItem={({item}) => (
           <ContactItem
             contact={item}
-            onPress={() => handleContactPress(item.id!)}
+            onPress={() => handleContactPress(item.id)}
           />
         )}
+        renderSectionHeader={({section: {title}}) => (
+          <Text
+            category="h6"
+            style={{paddingVertical: 8, paddingHorizontal: 16}}>
+            {title}
+          </Text>
+        )}
+        stickySectionHeadersEnabled={true}
+        ItemSeparatorComponent={() => <Divider style={{marginVertical: 4}} />}
       />
       <CreateContact />
     </View>
