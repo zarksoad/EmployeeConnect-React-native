@@ -125,8 +125,7 @@ const ContactPage: React.FC<ContactPageProps> = ({route}) => {
         </View>
 
         {contact.latitude && contact.longitude ? (
-          <>
-            <Text style={styles.locationLabel}>Location:</Text>
+          <View style={styles.locationContainer}>
             <WeatherEmojiComponent
               lat={contact.latitude}
               lon={contact.longitude}
@@ -135,7 +134,7 @@ const ContactPage: React.FC<ContactPageProps> = ({route}) => {
               latitude={contact.latitude}
               longitude={contact.longitude}
             />
-          </>
+          </View>
         ) : (
           <Text>No map available for this contact.</Text>
         )}

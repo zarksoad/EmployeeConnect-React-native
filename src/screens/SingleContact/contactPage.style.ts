@@ -9,10 +9,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   contactCard: {
-    width: '100%',
+    width: 300,
     maxWidth: 500,
     borderRadius: 10,
-    backgroundColor: '#e0f7fa',
+    backgroundColor: '#f0faff',
     padding: 16,
     alignItems: 'center',
     shadowColor: '#000',
@@ -37,9 +37,19 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   contactInfo: {
-    width: '80%', // Use 80% of the card width
-    alignItems: 'flex-start', // Align to the left
+    width: 300,
+    padding: 10,
+    alignItems: 'flex-start',
     marginTop: 16,
+    borderWidth: 1,
+    borderColor: '#d0e6ef',
+    borderRadius: 8,
+    backgroundColor: '#f0faff',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
   },
   infoLabel: {
     fontSize: 18,
@@ -51,7 +61,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#555',
     marginBottom: 4,
-    flexDirection: 'row', // Align icon and text horizontally
+    flexDirection: 'row',
     alignItems: 'center',
   },
   infoIcon: {
@@ -64,6 +74,21 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#333',
     marginTop: 16,
+  },
+  locationContainer: {
+    width: 300,
+    paddingBottom: 10,
+    alignItems: 'center',
+    marginTop: 16,
+    borderWidth: 1,
+    borderColor: '#d0e6ef',
+    borderRadius: 8,
+    backgroundColor: '#f0faff',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
   },
   iconContainer: {
     flexDirection: 'row',

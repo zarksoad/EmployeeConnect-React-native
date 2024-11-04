@@ -11,13 +11,17 @@ const WeatherEmojiComponent: React.FC<WeatherEmojiComponentProps> = ({
   lat,
   lon,
 }) => {
-  const {weatherEmoji, loading, error} = useWeather(lat, lon);
+  const {weatherEmoji, weatherDescription, loading, error} = useWeather(
+    lat,
+    lon,
+  );
 
   if (loading) return <ActivityIndicator size="large" color="#0000ff" />;
   if (error) return <Text>Error loading weather data</Text>;
 
   return (
     <View style={styles.container}>
+      <Text style={styles.description}>{weatherDescription}</Text>
       <Text style={styles.emoji}>{weatherEmoji}</Text>
     </View>
   );
@@ -26,11 +30,16 @@ const WeatherEmojiComponent: React.FC<WeatherEmojiComponentProps> = ({
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    justifyContent: 'center',
     marginTop: 20,
+    flexDirection: 'row',
+    color: 'black',
   },
   emoji: {
     fontSize: 50,
+  },
+  description: {
+    fontSize: 20,
+    color: 'black',
   },
 });
 
