@@ -36,6 +36,23 @@ const styles = StyleSheet.create({
     color: 'red',
     marginTop: 10,
   },
+  buttonIcon: {
+    width: 20,
+    height: 20,
+    marginRight: 10, // Add some space between icon and text
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: 'lightgray',
+    marginBottom: 15,
+  },
+  icon: {
+    width: 20,
+    height: 20,
+    marginRight: 10,
+  },
 });
 
 export default styles;

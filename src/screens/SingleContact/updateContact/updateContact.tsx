@@ -1,24 +1,24 @@
 import React, {useState, useEffect} from 'react';
-import {Alert, Image, TextInput, View} from 'react-native';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {Alert, Image, TextInput, View, Pressable} from 'react-native';
 import {RouteProp, useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../../../App';
 import {useContact} from '../../../hooks/useGetContact';
 import {useUpdateContact} from '../../../hooks/useUpdateContact';
 import {Text} from 'react-native-paper';
-import styles from '../../create/createContact-styles';
 import {
   checkOrRequestCameraPermission,
   checkOrRequestGalleryPermissions,
 } from '../../../commun/permisions/checkOrOpen';
-import {Pressable} from 'react-native';
 import MapPage from '../../maps/MapScreen';
+import {Icon} from '@ui-kitten/components';
+import styles from './updateContactStyle';
 
 export type ContactPageRouteProp = RouteProp<
   RootStackParamList,
   'UpdateContactPage'
 >;
+
 export type UpdateContactRoutePageProp = NativeStackNavigationProp<
   RootStackParamList,
   'UpdateContactPage'
@@ -32,27 +32,24 @@ const UpdateForm: React.FC<UpdateContactPageProps> = ({route}) => {
   const {contactId} = route.params;
   const {contact} = useContact(contactId);
   const {updateContact, isLoading, error} = useUpdateContact();
-
   const navigation = useNavigation<UpdateContactRoutePageProp>();
 
-  // State for contact fields
   const [name, setName] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [imageUri, setImageUri] = useState<string | null>(null);
-
-  // New state for latitude and longitude
   const [latitude, setLatitude] = useState<number | undefined>(undefined);
   const [longitude, setLongitude] = useState<number | undefined>(undefined);
   const [showMap, setShowMap] = useState(false); // For showing map modal
+  const [showImageOptions, setShowImageOptions] = useState(false);
+  const defaultImageUri = require('../../../assets/default-image.png');
 
   useEffect(() => {
     if (contact) {
       setName(contact.name);
       setPhone(contact.phone);
       setEmail(contact.email);
-      contact.imageUri ? setImageUri(contact.imageUri) : null;
-      // Set latitude and longitude from the contact
+      setImageUri(contact.imageUri || null);
       setLatitude(contact.latitude);
       setLongitude(contact.longitude);
     }
@@ -92,8 +89,8 @@ const UpdateForm: React.FC<UpdateContactPageProps> = ({route}) => {
       phone,
       email,
       imageUri,
-      latitude, // Include latitude
-      longitude, // Include longitude
+      latitude,
+      longitude,
     };
 
     await updateContact(updatedContact, contactId.toString());
@@ -108,7 +105,38 @@ const UpdateForm: React.FC<UpdateContactPageProps> = ({route}) => {
 
   return (
     <View style={styles.container}>
-      <View>
+      <View style={styles.containerImage}>
+        <Pressable onPress={() => setShowImageOptions(!showImageOptions)}>
+          <Image
+            source={imageUri ? {uri: imageUri} : defaultImageUri}
+            style={styles.image}
+          />
+        </Pressable>
+      </View>
+
+      {showImageOptions && (
+        <View style={styles.imageOptionsContainer}>
+          <Pressable
+            onPress={() => checkOrRequestCameraPermission(setImageUri)}>
+            {({pressed}) => (
+              <>
+                <Icon name="camera" style={{width: 20, height: 20}} />
+              </>
+            )}
+          </Pressable>
+
+          <Pressable
+            onPress={() => checkOrRequestGalleryPermissions(setImageUri)}>
+            {({pressed}) => (
+              <>
+                <Icon name="image" style={{width: 20, height: 20}} />
+              </>
+            )}
+          </Pressable>
+        </View>
+      )}
+
+      <View style={styles.formContainer}>
         <TextInput
           style={styles.input}
           placeholder="Name"
@@ -132,41 +160,17 @@ const UpdateForm: React.FC<UpdateContactPageProps> = ({route}) => {
           keyboardType="phone-pad"
         />
 
-        {imageUri && <Image source={{uri: imageUri}} style={styles.image} />}
-
-        <Pressable
-          style={({pressed}) => [
-            styles.button,
-            {backgroundColor: pressed ? 'lightblue' : 'blue'},
-          ]}
-          onPress={() => checkOrRequestCameraPermission(setImageUri)}>
-          <Text style={styles.buttonText}>Take Photo</Text>
+        <Pressable style={styles.button} onPress={() => setShowMap(true)}>
+          {({pressed}) => (
+            <>
+              <Icon name="map" style={{width: 20, height: 20}} />
+              <Text style={styles.buttonText}>Location</Text>
+            </>
+          )}
         </Pressable>
 
         <Pressable
-          style={({pressed}) => [
-            styles.button,
-            {backgroundColor: pressed ? 'lightblue' : 'blue'},
-          ]}
-          onPress={() => checkOrRequestGalleryPermissions(setImageUri)}>
-          <Text style={styles.buttonText}>Select from Gallery</Text>
-        </Pressable>
-
-        {/* Button to open map for selecting coordinates */}
-        <Pressable
-          style={({pressed}) => [
-            styles.button,
-            {backgroundColor: pressed ? 'lightblue' : 'blue'},
-          ]}
-          onPress={() => setShowMap(true)}>
-          <Text style={styles.buttonText}>Select Location</Text>
-        </Pressable>
-
-        <Pressable
-          style={({pressed}) => [
-            styles.button,
-            {backgroundColor: pressed ? 'lightblue' : 'blue'},
-          ]}
+          style={styles.button}
           onPress={handleSubmit}
           disabled={isLoading}>
           <Text style={styles.buttonText}>
@@ -176,7 +180,6 @@ const UpdateForm: React.FC<UpdateContactPageProps> = ({route}) => {
 
         {error && <Text style={styles.errorText}>{error}</Text>}
 
-        {/* Include the Map component for selecting coordinates */}
         <MapPage
           visible={showMap}
           onClose={() => setShowMap(false)}

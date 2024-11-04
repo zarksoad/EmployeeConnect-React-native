@@ -35,10 +35,12 @@ const ContactItem: React.FC<ContactItemProps> = ({contact, onPress}) => {
 
   return (
     <Pressable onPress={handlePress} style={styles.contactItem}>
-      <Image
-        source={contact?.imageUri ? {uri: contact.imageUri} : defaultImageUri}
-        style={styles.contactImage}
-      />
+      <View style={styles.containerImage}>
+        <Image
+          source={contact?.imageUri ? {uri: contact.imageUri} : defaultImageUri}
+          style={styles.contactImage}
+        />
+      </View>
       <View style={styles.contactDetails}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Icon

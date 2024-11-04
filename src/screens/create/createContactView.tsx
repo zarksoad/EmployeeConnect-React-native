@@ -10,6 +10,7 @@ import {
   checkOrRequestGalleryPermissions,
 } from '../../commun/permisions/checkOrOpen';
 import MapPage from '../maps/MapScreen';
+import {Icon} from '@ui-kitten/components'; // Import Icon component from UI Kitten
 
 type NavigationCreateContactProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -29,7 +30,7 @@ const CreateContactForm: React.FC = () => {
   const [showMap, setShowMap] = useState(false);
 
   const handleSaveCoordinates = (lat: number, lon: number) => {
-    console.log('Received coordinates:', lat, lon); //
+    console.log('Received coordinates:', lat, lon);
     setLatitude(lat);
     setLongitude(lon);
     setShowMap(false);
@@ -63,8 +64,8 @@ const CreateContactForm: React.FC = () => {
       setPhone('');
       setEmail('');
       setImageUri(undefined);
-      setLatitude(Number);
-      setLongitude(Number);
+      setLatitude(undefined);
+      setLongitude(undefined);
       navigation.navigate('Home');
     } else {
       Alert.alert('Error', error || 'Failed to create contact');
@@ -80,34 +81,43 @@ const CreateContactForm: React.FC = () => {
         value={name}
         onChangeText={setName}
       />
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        placeholderTextColor="blue"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Phone"
-        placeholderTextColor="blue"
-        value={phone}
-        onChangeText={setPhone}
-        keyboardType="phone-pad"
-      />
+      <Pressable style={styles.inputContainer}>
+        <Icon name="email" style={styles.icon} />
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          placeholderTextColor="blue"
+          value={email}
+          onChangeText={setEmail}
+        />
+      </Pressable>
+      <Pressable style={styles.inputContainer}>
+        <Icon name="phone" style={styles.icon} />
+        <TextInput
+          style={styles.input}
+          placeholder="Phone"
+          placeholderTextColor="blue"
+          value={phone}
+          onChangeText={setPhone}
+          keyboardType="phone-pad"
+        />
+      </Pressable>
 
       {imageUri && <Image source={{uri: imageUri}} style={styles.image} />}
       <Pressable
         style={styles.button}
         onPress={() => checkOrRequestCameraPermission(setImageUri)}>
+        <Icon name="camera" style={styles.buttonIcon} />
         <Text style={styles.buttonText}>Take Photo</Text>
       </Pressable>
       <Pressable
         style={styles.button}
         onPress={() => checkOrRequestGalleryPermissions(setImageUri)}>
+        <Icon name="image" style={styles.buttonIcon} />
         <Text style={styles.buttonText}>Select from Gallery</Text>
       </Pressable>
       <Pressable style={styles.button} onPress={() => setShowMap(true)}>
+        <Icon name="map" style={styles.buttonIcon} />
         <Text style={styles.buttonText}>Open Map</Text>
       </Pressable>
 
@@ -129,4 +139,5 @@ const CreateContactForm: React.FC = () => {
     </View>
   );
 };
+
 export default CreateContactForm;
