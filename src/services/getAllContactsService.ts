@@ -4,7 +4,6 @@ import {API_URL} from '@env';
 
 export const getContacts = async (): Promise<Contact[]> => {
   try {
-    //contacts
     const response = await axios.get(`${API_URL}/contacts`);
     if (response.status === 200) {
       const contactsGet: Contact[] = response.data;

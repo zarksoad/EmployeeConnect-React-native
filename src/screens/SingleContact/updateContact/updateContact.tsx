@@ -40,7 +40,7 @@ const UpdateForm: React.FC<UpdateContactPageProps> = ({route}) => {
   const [imageUri, setImageUri] = useState<string | null>(null);
   const [latitude, setLatitude] = useState<number | undefined>(undefined);
   const [longitude, setLongitude] = useState<number | undefined>(undefined);
-  const [showMap, setShowMap] = useState(false); // For showing map modal
+  const [showMap, setShowMap] = useState(false);
   const [showImageOptions, setShowImageOptions] = useState(false);
   const defaultImageUri = require('../../../assets/default-image.png');
 
@@ -113,7 +113,6 @@ const UpdateForm: React.FC<UpdateContactPageProps> = ({route}) => {
           />
         </Pressable>
       </View>
-
       {showImageOptions && (
         <View style={styles.imageOptionsContainer}>
           <Pressable
@@ -124,7 +123,9 @@ const UpdateForm: React.FC<UpdateContactPageProps> = ({route}) => {
               </>
             )}
           </Pressable>
-
+          <View>
+            <Text> choose </Text>
+          </View>
           <Pressable
             onPress={() => checkOrRequestGalleryPermissions(setImageUri)}>
             {({pressed}) => (

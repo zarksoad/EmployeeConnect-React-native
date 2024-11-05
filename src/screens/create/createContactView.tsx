@@ -10,7 +10,7 @@ import {
   checkOrRequestGalleryPermissions,
 } from '../../commun/permisions/checkOrOpen';
 import MapPage from '../maps/MapScreen';
-import {Icon} from '@ui-kitten/components'; // Import Icon component from UI Kitten
+import {Icon} from '@ui-kitten/components';
 
 type NavigationCreateContactProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -24,13 +24,17 @@ const CreateContactForm: React.FC = () => {
   const [name, setName] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const [email, setEmail] = useState<string>('');
-  const [imageUri, setImageUri] = useState<string | null | undefined>(null);
+
+  // Define the default image as a local asset without using URI
+  const defaultImageUri = require('../../assets/default-image.png');
+  const [imageUri, setImageUri] = useState<string | null>(null);
+
   const [latitude, setLatitude] = useState<number | undefined>(undefined);
   const [longitude, setLongitude] = useState<number | undefined>(undefined);
   const [showMap, setShowMap] = useState(false);
+  const [showImageOptions, setShowImageOptions] = useState(false);
 
   const handleSaveCoordinates = (lat: number, lon: number) => {
-    console.log('Received coordinates:', lat, lon);
     setLatitude(lat);
     setLongitude(lon);
     setShowMap(false);
@@ -63,7 +67,7 @@ const CreateContactForm: React.FC = () => {
       setName('');
       setPhone('');
       setEmail('');
-      setImageUri(undefined);
+      setImageUri(null);
       setLatitude(undefined);
       setLongitude(undefined);
       navigation.navigate('Home');
@@ -74,13 +78,45 @@ const CreateContactForm: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Name"
-        placeholderTextColor="blue"
-        value={name}
-        onChangeText={setName}
-      />
+      <View style={styles.containerImage}>
+        <Pressable onPress={() => setShowImageOptions(!showImageOptions)}>
+          <Image
+            source={imageUri ? {uri: imageUri} : defaultImageUri}
+            style={styles.image}
+          />
+        </Pressable>
+        {showImageOptions && (
+          <View style={styles.imageOptionsContainer}>
+            <Pressable
+              onPress={() => checkOrRequestCameraPermission(setImageUri)}>
+              {({}) => (
+                <>
+                  <Icon name="camera" style={{width: 20, height: 20}} />
+                </>
+              )}
+            </Pressable>
+            <View></View>
+            <Pressable
+              onPress={() => checkOrRequestGalleryPermissions(setImageUri)}>
+              {({}) => (
+                <>
+                  <Icon name="image" style={{width: 20, height: 20}} />
+                </>
+              )}
+            </Pressable>
+          </View>
+        )}
+      </View>
+      <Pressable style={styles.inputContainer}>
+        <Icon name="person" style={styles.icon} />
+        <TextInput
+          style={styles.input}
+          placeholder="Name"
+          placeholderTextColor="blue"
+          value={name}
+          onChangeText={setName}
+        />
+      </Pressable>
       <Pressable style={styles.inputContainer}>
         <Icon name="email" style={styles.icon} />
         <TextInput
@@ -101,20 +137,6 @@ const CreateContactForm: React.FC = () => {
           onChangeText={setPhone}
           keyboardType="phone-pad"
         />
-      </Pressable>
-
-      {imageUri && <Image source={{uri: imageUri}} style={styles.image} />}
-      <Pressable
-        style={styles.button}
-        onPress={() => checkOrRequestCameraPermission(setImageUri)}>
-        <Icon name="camera" style={styles.buttonIcon} />
-        <Text style={styles.buttonText}>Take Photo</Text>
-      </Pressable>
-      <Pressable
-        style={styles.button}
-        onPress={() => checkOrRequestGalleryPermissions(setImageUri)}>
-        <Icon name="image" style={styles.buttonIcon} />
-        <Text style={styles.buttonText}>Select from Gallery</Text>
       </Pressable>
       <Pressable style={styles.button} onPress={() => setShowMap(true)}>
         <Icon name="map" style={styles.buttonIcon} />

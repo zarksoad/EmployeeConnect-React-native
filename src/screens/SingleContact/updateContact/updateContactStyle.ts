@@ -5,35 +5,34 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: '#fff',
-    alignItems: 'center', // Center children horizontally
-    justifyContent: 'center', // Center children vertically
-    borderRadius: 10, // Optional: Add border radius for rounded corners
-    // iOS shadow properties
-    shadowColor: '#000', // Shadow color
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    shadowColor: '#000',
     shadowOffset: {
-      width: 0, // Horizontal shadow offset
-      height: 2, // Vertical shadow offset
+      width: 0,
+      height: 2,
     },
-    shadowOpacity: 0.25, // Shadow opacity
-    shadowRadius: 3.5, // Shadow blur radius
-    // Android elevation property
-    elevation: 5, // Elevation for Android shadow
+    shadowOpacity: 0.25,
+    shadowRadius: 3.5,
+    elevation: 5,
   },
   containerImage: {
     width: 300,
     height: 200,
-    alignItems: 'center', // Center image inside this container
+    alignItems: 'center',
     justifyContent: 'center',
   },
   image: {
-    width: 100,
-    height: 100,
+    width: 150,
+    height: 150,
     borderRadius: 50,
     marginBottom: 16,
   },
   imageOptionsContainer: {
+    width: 150,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     marginBottom: 16,
   },
   formContainer: {

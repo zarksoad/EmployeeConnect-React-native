@@ -7,16 +7,32 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   input: {
+    flex: 1,
     height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 10,
-    paddingHorizontal: 10,
+    fontSize: 16,
+    color: '#333',
+  },
+  containerImage: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 300,
+    height: 200,
   },
   image: {
-    width: 100,
-    height: 100,
-    marginVertical: 10,
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    borderWidth: 4,
+    borderColor: '#007AFF',
+    padding: 5, // Optional, for adding space between image and border
+    marginBottom: 16,
+  },
+  imageOptionsContainer: {
+    height: 30,
+    width: 150,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginBottom: 16,
   },
   button: {
     backgroundColor: 'blue',
@@ -39,7 +55,7 @@ const styles = StyleSheet.create({
   buttonIcon: {
     width: 20,
     height: 20,
-    marginRight: 10, // Add some space between icon and text
+    marginRight: 10,
   },
   inputContainer: {
     flexDirection: 'row',
