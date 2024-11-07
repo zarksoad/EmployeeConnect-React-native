@@ -5,7 +5,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../../../App';
 import {useContact} from '../../../hooks/useGetContact';
 import {useUpdateContact} from '../../../hooks/useUpdateContact';
-import {Text} from 'react-native-paper';
+import {Text} from 'react-native';
 import {
   checkOrRequestCameraPermission,
   checkOrRequestGalleryPermissions,

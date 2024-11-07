@@ -45,7 +45,6 @@ const Home: React.FC = () => {
     return <ActivityIndicator size="large" color="#0000ff" />;
   }
 
-  // Log contacts to check their structure
   console.log('Contacts:', contacts);
 
   const handleContactPress = (id: number) => {

@@ -17,3 +17,8 @@ export interface ICreateContact {
   longitude?: number;
   imageUri?: string | null;
 }
+
+export interface ILoginContact {
+  email: string;
+  password: string;
+}

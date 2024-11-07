@@ -9,14 +9,17 @@ import CreateContactForm from './src/screens/create/createContactView';
 import ContactPage from './src/screens/SingleContact/singleContactPage';
 import Home from './src/screens/home/HomeView';
 import UpdateContactPage from './src/screens/SingleContact/updateContact/updateContact';
+import LoginView from './src/screens/auth/LoginView';
+import RegisterView from './src/screens/auth/RegisterView';
 
 export interface RootStackParamList extends ParamListBase {
   Home: undefined;
-  Splash: undefined;
   CreateContact: undefined;
   ContactPage: {contactId: number};
   UpdateContactPage: {contactId: number};
   MapPage: undefined;
+  login: undefined;
+  register: undefined;
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -27,7 +30,9 @@ function App() {
       <IconRegistry icons={EvaIconsPack} />
       <NavigationContainer>
         <Header />
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator initialRouteName="login">
+          <Stack.Screen name="login" component={LoginView} />
+          <Stack.Screen name="register" component={RegisterView} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="CreateContact" component={CreateContactForm} />
           <Stack.Screen name="ContactPage" component={ContactPage} />

@@ -25,7 +25,6 @@ const CreateContactForm: React.FC = () => {
   const [phone, setPhone] = useState<string>('');
   const [email, setEmail] = useState<string>('');
 
-  // Define the default image as a local asset without using URI
   const defaultImageUri = require('../../assets/default-image.png');
   const [imageUri, setImageUri] = useState<string | null>(null);
 

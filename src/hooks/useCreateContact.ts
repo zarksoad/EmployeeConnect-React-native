@@ -35,7 +35,6 @@ export const useCreateContact = () => {
   };
 
   const createContact = async (contact: ICreateContact) => {
-    console.log('Data sent to service:', contact);
     setIsLoading(true);
     setError(null);
     const validationError = validateContact(contact);

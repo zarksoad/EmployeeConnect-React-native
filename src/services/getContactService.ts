@@ -1,4 +1,4 @@
-import {API_URL} from '@env'; // Ensure this is set in your .env file
+import {API_URL} from '@env';
 import axios from 'axios';
 import {Contact} from './types/contactType';
 
