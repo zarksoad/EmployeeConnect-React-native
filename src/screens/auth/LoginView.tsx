@@ -18,7 +18,6 @@ const LoginView = () => {
   const handleSubmit = async () => {
     await login(email, password);
     if (!error) {
-      Alert.alert('Logged in successfully');
       navigation.navigate('Home');
     }
   };

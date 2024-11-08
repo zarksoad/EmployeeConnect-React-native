@@ -1,55 +1,23 @@
-import {useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '../../App';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useState} from 'react';
 import {createContactService} from '../services/createContactService';
 import {ICreateContact} from '../services/types/contactType';
 
-type NavigationCreateContactProps = NativeStackNavigationProp<
-  RootStackParamList,
-  'CreateContact'
->;
-
 export const useCreateContact = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const navigation = useNavigation<NavigationCreateContactProps>();
 
-  const validateContact = (contact: ICreateContact) => {
-    const {name, email, phone} = contact;
-
-    if (!name) {
-      return 'Name is required';
-    }
-
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email || !emailPattern.test(email)) {
-      return 'Valid email is required';
-    }
-
-    if (!phone) {
-      return 'Phone number is required';
-    }
-
-    return null;
-  };
-
-  const createContact = async (contact: ICreateContact) => {
+  const createContact = async (contactData: ICreateContact): Promise<void> => {
     setIsLoading(true);
-    setError(null);
-    const validationError = validateContact(contact);
-    if (validationError) {
-      setError(validationError);
-      setIsLoading(false);
-      return;
-    }
+    setError(null); // Reset the error before the request
 
     try {
-      await createContactService(contact);
-      navigation.navigate('Home');
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        setError(error.message || 'Something went wrong');
+      await createContactService(contactData);
+      // Successful contact creation, no error, you can return null or success message if needed
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message || 'An error occurred');
+      } else {
+        setError('An unknown error occurred');
       }
     } finally {
       setIsLoading(false);

@@ -1,15 +1,26 @@
 import {API_URL} from '@env';
 import axios from 'axios';
 import {Contact} from './types/contactType';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const getContact = async (
   contactId: number,
 ): Promise<Contact | undefined> => {
   try {
-    // comment
-    const response = await axios.get(`${API_URL}/contacts/${contactId}`);
-    console.log(contactId);
-    return response.data as Contact;
+    const token = await AsyncStorage.getItem('accessToken');
+
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
+    const response = await axios.get(`${API_URL}/api/contacts/${contactId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response.status === 200) {
+      return response.data.data as Contact;
+    }
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.error('Error fetching contact from API:', error.message);
