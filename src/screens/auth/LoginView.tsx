@@ -4,8 +4,14 @@ import {Icon} from '@ui-kitten/components';
 import {useState} from 'react';
 import RegisterButton from '../../components/auth/registerButton';
 import useLogin from '../../hooks/useLoginContact';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../../App';
+import {useNavigation} from '@react-navigation/native';
+
+type NavigationHome = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
 const LoginView = () => {
+  const navigation = useNavigation<NavigationHome>();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const {login, isLoading, error} = useLogin();
@@ -13,6 +19,7 @@ const LoginView = () => {
     await login(email, password);
     if (!error) {
       Alert.alert('Logged in successfully');
+      navigation.navigate('Home');
     }
   };
 

@@ -1,18 +1,14 @@
-// env.d.ts
 declare module '@env' {
   export const MAPBOX_DOWNLOADS_TOKEN: string;
   export const API_URL: string;
   export const API_WEATHER: string;
 }
 
-// ui-kitten.d.ts
-// ui-kitten.d.ts
-// ui-kitten.d.ts
 declare module '@ui-kitten/components' {
   import {TextProps as RNTextProps, ViewProps} from 'react-native';
 
   export interface Mapping {
-    [key: string]: any; // Adjust this based on what properties you need
+    [key: string]: any;
   }
 
   export interface IconProps {
@@ -51,6 +47,6 @@ declare module '@ui-kitten/components' {
   }>;
 
   export const IconRegistry: React.FC<{
-    icons: any; // You can specify the type more accurately if needed
+    icons: any;
   }>;
 }

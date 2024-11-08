@@ -6,6 +6,7 @@ export interface Contact {
   latitude?: number;
   longitude?: number;
   imageUri?: string | null;
+  userId: string;
 }
 
 export interface ICreateContact {
@@ -16,9 +17,4 @@ export interface ICreateContact {
   latitude?: number;
   longitude?: number;
   imageUri?: string | null;
-}
-
-export interface ILoginContact {
-  email: string;
-  password: string;
 }

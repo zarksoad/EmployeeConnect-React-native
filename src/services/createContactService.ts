@@ -1,14 +1,24 @@
 import axios from 'axios';
 import {ICreateContact} from './types/contactType';
 import {API_URL} from '@env';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const createContactService = async (
   contact: ICreateContact,
 ): Promise<void> => {
   try {
-    //comment
-    console.log(contact, 'contactServices');
-    const response = await axios.post(`${API_URL}/contacts`, contact);
+    const token = await AsyncStorage.getItem('accessToken');
+    console.log('this is the contact', contact);
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
+
+    const response = await axios.post(`${API_URL}/api/contacts`, contact, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     if (response.status === 201 || response.status === 200) {
       console.log('Contact successfully saved:', response.data);
@@ -17,7 +27,7 @@ export const createContactService = async (
     }
   } catch (error: unknown) {
     if (error instanceof Error) {
-      console.error('Error creating the contact:', error);
+      console.error(error.message, error.name, error.stack, 'error');
       throw error;
     }
   }
