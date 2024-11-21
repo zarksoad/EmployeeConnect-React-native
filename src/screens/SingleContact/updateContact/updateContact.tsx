@@ -6,13 +6,14 @@ import {RootStackParamList} from '../../../../App';
 import {useContact} from '../../../hooks/useGetContact';
 import {useUpdateContact} from '../../../hooks/useUpdateContact';
 import {Text} from 'react-native';
-import {
-  checkOrRequestCameraPermission,
-  checkOrRequestGalleryPermissions,
-} from '../../../commun/permisions/checkOrOpen';
+
 import MapPage from '../../maps/MapScreen';
 import {Icon} from '@ui-kitten/components';
 import styles from './updateContactStyle';
+import {
+  checkOrRequestCameraPermission,
+  checkOrRequestGalleryPermissions,
+} from '../../../common/permissions/checkOrOpen';
 
 export type ContactPageRouteProp = RouteProp<
   RootStackParamList,
@@ -37,6 +38,7 @@ const UpdateForm: React.FC<UpdateContactPageProps> = ({route}) => {
   const [name, setName] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const [email, setEmail] = useState<string>('');
+  const [userId, setUserId] = useState<string>('');
   const [imageUri, setImageUri] = useState<string | null>(null);
   const [latitude, setLatitude] = useState<number | undefined>(undefined);
   const [longitude, setLongitude] = useState<number | undefined>(undefined);
@@ -52,6 +54,7 @@ const UpdateForm: React.FC<UpdateContactPageProps> = ({route}) => {
       setImageUri(contact.imageUri || null);
       setLatitude(contact.latitude);
       setLongitude(contact.longitude);
+      setUserId(contact.userId);
     }
   }, [contact]);
 
@@ -83,7 +86,7 @@ const UpdateForm: React.FC<UpdateContactPageProps> = ({route}) => {
   const handleSubmit = async () => {
     if (!validateInputs()) return;
 
-    const updatedContact = {
+    const newContact = {
       id: Number(contact?.id),
       name,
       phone,
@@ -91,9 +94,10 @@ const UpdateForm: React.FC<UpdateContactPageProps> = ({route}) => {
       imageUri,
       latitude,
       longitude,
+      userId,
     };
 
-    await updateContact(updatedContact, contactId.toString());
+    await updateContact(newContact, contactId.toString());
 
     if (!error) {
       Alert.alert('Success', 'Contact updated successfully');

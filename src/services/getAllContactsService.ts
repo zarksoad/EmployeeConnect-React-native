@@ -5,10 +5,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const getContacts = async (): Promise<Contact[]> => {
   try {
+    //comments
     const token = await AsyncStorage.getItem('accessToken');
 
     if (!token) {
       console.error('No token found');
+
       return [];
     }
     const response = await axios.get(`${API_URL}/api/contacts`, {

@@ -4,7 +4,7 @@ import mapStyles from './map.style';
 import {MAPBOX_DOWNLOADS_TOKEN} from '@env';
 import MapboxGL, {MapView, Camera, PointAnnotation} from '@rnmapbox/maps';
 import Geolocation from '@react-native-community/geolocation';
-import {checkOrRequestLocationPermission} from '../../commun/permisions/checkOrOpen';
+import {checkOrRequestLocationPermission} from '../../common/permissions/checkOrOpen';
 
 MapboxGL.setAccessToken(`${MAPBOX_DOWNLOADS_TOKEN}`);
 

@@ -7,7 +7,7 @@ export const deleteContactService = async (
 ): Promise<void> => {
   try {
     const token = await AsyncStorage.getItem('accessToken');
-
+    //console.log
     if (!token) {
       console.error('No token found');
       return;

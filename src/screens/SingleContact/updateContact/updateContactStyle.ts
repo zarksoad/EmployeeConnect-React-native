@@ -37,14 +37,18 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     flex: 1,
+    width: '100%', // Ensures the form fields take up full width
+    paddingHorizontal: 20, // Adds padding to improve readability
   },
   input: {
     height: 50,
     borderColor: '#ccc',
     borderWidth: 1,
     borderRadius: 8,
-    paddingHorizontal: 10,
-    marginBottom: 10,
+    paddingHorizontal: 15,
+    marginBottom: 15,
+    fontSize: 16,
+    color: 'blue',
   },
   button: {
     flexDirection: 'row',
@@ -52,15 +56,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 50,
     borderRadius: 8,
-    backgroundColor: 'blue',
+    backgroundColor: '#007AFF', // A more vibrant blue for better visibility
     marginBottom: 10,
   },
   buttonText: {
     color: '#fff',
+    fontSize: 16, // Larger font size for better readability
+    fontWeight: 'bold', // Bold text to stand out on the button
     marginLeft: 8,
   },
   errorText: {
     color: 'red',
+    fontSize: 14,
+    fontWeight: '600',
     marginBottom: 10,
   },
 });

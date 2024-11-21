@@ -1,4 +1,4 @@
-import {Alert, Pressable, TextInput, View, Text} from 'react-native';
+import {Pressable, TextInput, View, Text} from 'react-native';
 import styles from './login.style';
 import {Icon} from '@ui-kitten/components';
 import {useState} from 'react';
@@ -15,10 +15,11 @@ const LoginView = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const {login, isLoading, error} = useLogin();
+
   const handleSubmit = async () => {
     await login(email, password);
     if (!error) {
-      navigation.navigate('Home');
+      navigation.replace('Home');
     }
   };
 
@@ -26,7 +27,6 @@ const LoginView = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Login</Text>
 
-      {/* Email input */}
       <Pressable style={styles.inputContainer}>
         <Icon name="person" style={styles.icon} />
         <TextInput
@@ -38,7 +38,6 @@ const LoginView = () => {
         />
       </Pressable>
 
-      {/* Password input */}
       <Pressable style={styles.inputContainer}>
         <Icon name="lock" style={styles.icon} />
         <TextInput
@@ -51,11 +50,9 @@ const LoginView = () => {
         />
       </Pressable>
 
-      {/* Error Text - Display error message if any */}
       {error && <Text style={styles.errorText}>{error}</Text>}
 
       <View style={styles.buttonContainer}>
-        {/* Login Button */}
         <Pressable
           onPress={handleSubmit}
           style={[styles.button, isLoading && styles.disabledButton]}
@@ -65,8 +62,6 @@ const LoginView = () => {
             {isLoading ? 'Logging in...' : 'Log In'}
           </Text>
         </Pressable>
-
-        {/* Register Button */}
         <RegisterButton />
       </View>
     </View>

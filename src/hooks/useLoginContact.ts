@@ -13,8 +13,8 @@ const useLogin = () => {
 
     try {
       const {accessToken} = await loginService(email, password);
-      AsyncStorage.removeItem('accessToken');
       await AsyncStorage.setItem('accessToken', accessToken);
+      console.log(accessToken, 'access token hook');
     } catch (err: any) {
       console.error('Error during login:', err);
       setError(err.message || 'An error occurred during login');

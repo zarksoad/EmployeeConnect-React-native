@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 import MapboxGL from '@rnmapbox/maps';
 import {MAPBOX_DOWNLOADS_TOKEN} from '@env';
 

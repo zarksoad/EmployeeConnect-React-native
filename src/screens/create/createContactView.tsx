@@ -5,12 +5,12 @@ import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../../App';
 import styles from './createContact-styles';
+import MapPage from '../maps/MapScreen';
+import {Icon} from '@ui-kitten/components';
 import {
   checkOrRequestCameraPermission,
   checkOrRequestGalleryPermissions,
-} from '../../commun/permisions/checkOrOpen';
-import MapPage from '../maps/MapScreen';
-import {Icon} from '@ui-kitten/components';
+} from '../../common/permissions/checkOrOpen';
 
 type NavigationCreateContactProps = NativeStackNavigationProp<
   RootStackParamList,
@@ -59,7 +59,6 @@ const CreateContactForm: React.FC = () => {
 
   const handleSubmit = async () => {
     if (!validateInputs()) return;
-    console.log('Coordinates before submission:', latitude, longitude);
     await createContact({name, phone, email, imageUri, latitude, longitude});
     if (!error) {
       Alert.alert('Success', 'Contact added successfully');

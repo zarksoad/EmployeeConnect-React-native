@@ -16,6 +16,7 @@ export const registerService = async (
   password: string,
 ): Promise<RegisterResponse> => {
   try {
+    console.log('registering', email, password);
     const response = await axios.post(`${API_URL}/api/auth/register`, {
       email,
       password,

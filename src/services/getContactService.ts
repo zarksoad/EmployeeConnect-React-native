@@ -7,6 +7,7 @@ export const getContact = async (
   contactId: number,
 ): Promise<Contact | undefined> => {
   try {
+    //comment
     const token = await AsyncStorage.getItem('accessToken');
 
     if (!token) {

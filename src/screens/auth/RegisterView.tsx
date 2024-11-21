@@ -26,6 +26,7 @@ const RegisterView = () => {
     }
 
     try {
+      console.log('start registering');
       const response = await handleRegister(email, password);
       if (response) {
         Alert.alert('Registration Successful', 'You can now log in.');

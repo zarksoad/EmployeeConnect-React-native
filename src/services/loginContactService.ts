@@ -11,6 +11,7 @@ export const loginService = async (
   password: string,
 ): Promise<LoginResponse> => {
   try {
+    console.log(API_URL);
     console.log('Sending request to:', API_URL);
     const response = await axios.post(`${API_URL}/api/auth/login`, {
       email,
