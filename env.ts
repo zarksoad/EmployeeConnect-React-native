@@ -5,7 +5,7 @@ declare module '@env' {
 }
 
 declare module '@ui-kitten/components' {
-  import {TextProps as RNTextProps, ViewProps} from 'react-native';
+  import {TextProps as RNTextProps, ViewProps, TextInputProps} from 'react-native';
 
   export interface Mapping {
     [key: string]: any;
@@ -27,22 +27,26 @@ declare module '@ui-kitten/components' {
     style?: ViewProps['style'];
   }
 
+  export interface InputProps extends TextInputProps {
+    placeholder?: string;
+    value?: string;
+    onChangeText?: (text: string) => void;
+    secureTextEntry?: boolean;
+    style?: ViewProps['style'];
+  }
+
   export interface KittenTextProps extends RNTextProps {
     category?: string;
   }
 
-  export interface DividerProps {
-    style?: ViewProps['style'];
-  }
-
   export const Icon: React.FC<IconProps>;
   export const Button: React.FC<ButtonProps>;
+  export const Input: React.FC<InputProps>;
   export const Text: React.FC<KittenTextProps>;
-  export const Divider: React.FC<DividerProps>;
 
   export const ApplicationProvider: React.FC<{
     mapping?: Mapping;
-    theme?: any; // You can define a more specific type here
+    theme?: any; // Define a specific type if needed
     children: React.ReactNode;
   }>;
 

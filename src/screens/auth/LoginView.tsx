@@ -1,5 +1,5 @@
 import {Pressable, TextInput, View, Text} from 'react-native';
-import styles from './login.style';
+import styles from './auth.style';
 import {Icon} from '@ui-kitten/components';
 import {useState} from 'react';
 import RegisterButton from '../../components/auth/registerButton';

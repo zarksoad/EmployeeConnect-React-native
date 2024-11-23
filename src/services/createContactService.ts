@@ -7,8 +7,7 @@ export const createContactService = async (
   contact: ICreateContact,
 ): Promise<void> => {
   try {
-    console.log('hola');
-    const token = await AsyncStorage.getItem('accessToken');
+  const token = await AsyncStorage.getItem('accessToken');
 
     if (!token) {
       console.error('No token found');

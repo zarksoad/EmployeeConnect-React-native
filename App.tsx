@@ -13,6 +13,7 @@ import RegisterView from './src/screens/auth/RegisterView';
 import {ParamListBase} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Header from './src/components/Header';
+import ContactUploader from './src/screens/SyncContacts/syncContact';
 
 export interface RootStackParamList extends ParamListBase {
   Home: undefined;
@@ -21,6 +22,7 @@ export interface RootStackParamList extends ParamListBase {
   UpdateContactPage: {contactId: number};
   login: undefined;
   register: undefined;
+  ContactUploader: undefined;
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -32,7 +34,7 @@ const App = () => {
     const checkToken = async () => {
       try {
         const token = await AsyncStorage.getItem('accessToken');
-        setIsLoggedIn(!!token); // Set logged in status based on token presence
+        setIsLoggedIn(!!token);
       } catch (error) {
         console.error('Error fetching token:', error);
         setIsLoggedIn(false);
@@ -68,7 +70,11 @@ const App = () => {
             component={UpdateContactPage}
             options={{title: 'Update Contact'}}
           />
-
+          <Stack.Screen
+            name="ContactUploader"
+            component={ContactUploader}
+            options={{title: 'Upload Contacts'}}
+          />
           {!isLoggedIn && (
             <>
               <Stack.Screen

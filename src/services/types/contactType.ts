@@ -10,7 +10,6 @@ export interface Contact {
 }
 
 export interface ICreateContact {
-  id?: number;
   name: string;
   phone: string;
   email: string;

@@ -2,28 +2,22 @@ import {Pressable, StyleSheet, Text} from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../../../App';
-import {Icon} from '@ui-kitten/components';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type NavigationLoginProps = NativeStackNavigationProp<
   RootStackParamList,
   'login'
 >;
 
-const LogoutButton: React.FC = () => {
+const LoginButton: React.FC = () => {
   const navigation = useNavigation<NavigationLoginProps>();
-  const navigateToLogin = async () => {
-    try {
-      await AsyncStorage.removeItem('accessToken');
-      navigation.navigate('login');
-    } catch (error) {
-      console.error('Error during logout:', error);
-    }
+
+  const navigateToRegister = () => {
+    navigation.navigate('login');
   };
 
   return (
-    <Pressable style={styles.button} onPress={navigateToLogin}>
-      <Icon name="log-out" style={styles.icon} />
+    <Pressable style={styles.button} onPress={navigateToRegister}>
+      <Text style={styles.buttonText}> go to login</Text>
     </Pressable>
   );
 };
@@ -31,13 +25,15 @@ const LogoutButton: React.FC = () => {
 const styles = StyleSheet.create({
   button: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
-    backgroundColor: '#B0C4DE',
-    borderRadius: 30,
-    paddingHorizontal: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    bottom: 20,
+    right: 20,
+    backgroundColor: '#66b2ff',
+    borderRadius: 50,
+    paddingHorizontal: 20,
     paddingVertical: 15,
     elevation: 5,
-    marginTop: 12,
   },
   icon: {
     width: 24,
@@ -51,4 +47,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LogoutButton;
+export default LoginButton;

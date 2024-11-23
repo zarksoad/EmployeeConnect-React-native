@@ -11,6 +11,7 @@ import {useContacts} from '../../hooks/useGetContacts';
 import ContactItem from '../../components/home/ContactItem';
 import {Contact} from '../../services/types/contactType';
 import PlusButton from '../../components/home/createContactButton';
+import ContactUploader from '../SyncContacts/syncContact';
 
 interface ContactSection extends SectionListData<Contact> {
   title: string;
@@ -75,6 +76,7 @@ const Home: React.FC = () => {
         ItemSeparatorComponent={() => <Divider style={{marginVertical: 4}} />}
       />
       <PlusButton />
+      <ContactUploader/>
     </View>
   );
 };

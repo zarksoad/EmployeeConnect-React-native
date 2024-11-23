@@ -16,7 +16,6 @@ export const registerService = async (
   password: string,
 ): Promise<RegisterResponse> => {
   try {
-    console.log('registering', email, password);
     const response = await axios.post(`${API_URL}/api/auth/register`, {
       email,
       password,
@@ -24,8 +23,11 @@ export const registerService = async (
     return response.data;
   } catch (error: any) {
     if (error.response?.status === 404) {
-      throw new Error('The email has already been used');
+      console.error('The email is already registered.');
+      throw new Error('The email is already registered. Please use another.');
     }
-    throw new Error('Registration failed');
+    throw new Error(
+      error.response?.data?.message || 'Registration failed. Try again later.',
+    );
   }
 };
